@@ -23,7 +23,7 @@
 //	elle permets aussi de trier les pages en fonction de nombre de hits de chacune
 //------------------------------------------------------------------------
 
-class EnsemblePages :
+class EnsemblePages 
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -51,7 +51,7 @@ public:
 //------------------------------------------------- Surcharge d'opérateurs
     EnsemblePages & operator = ( const EnsemblePages & unEnsemblePages );
     // Mode d'emploi :
-    //	surcharge l'operator reference pour la classe EnsemblePages
+    //	surcharge l'operator = pour la classe EnsemblePages
     // Contrat :
     //
 
@@ -96,7 +96,10 @@ private:
 	multimap <string, Page> pages;
 //---------------------------------------------------------- Classes amies
 
+friend class EnsemblePagesTDAO;
+
 //-------------------------------------------------------- Classes privées
+
 
 //----------------------------------------------------------- Types privés
 

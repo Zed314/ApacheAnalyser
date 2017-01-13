@@ -1,28 +1,28 @@
 /*************************************************************************
-                           Xxx  -  description
+                           RequeteTDAO  -  description
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 13/01/2017
+    copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
+    e-mail               : horia-cristian.burca@insa-lyon.fr et ziggy.vergne@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <Xxx> (fichier Xxx.h) ----------------
-#if ! defined ( XXX_H )
-#define XXX_H
+//---------- Interface de la classe <RequeteTDAO> (fichier RequeteTDAO.h) ----------------
+#if ! defined ( REQUETETDAO_H )
+#define REQUETETDAO_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include Requete.h
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Xxx>
+// Rôle de la classe <RequeteTDAO>
 //
 //
 //------------------------------------------------------------------------
 
-class Xxx : public Ancetre
+class RequeteTDAO
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -36,7 +36,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Xxx & operator = ( const Xxx & unXxx );
+    RequeteTDAO & operator = ( const RequeteTDAO & unRequeteTDAO );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,19 +44,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Xxx ( const Xxx & unXxx );
+    RequeteTDAO ( const RequeteTDAO & unRequeteTDAO );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Xxx ( );
+    RequeteTDAO ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Xxx ( );
+    virtual ~RequeteTDAO ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,7 +71,7 @@ protected:
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <Xxx>
+//-------------------------------- Autres définitions dépendantes de <RequeteTDAO>
 
-#endif // XXX_H
+#endif // REQUETETDAO_H
 

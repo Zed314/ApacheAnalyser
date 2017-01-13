@@ -1,30 +1,31 @@
 /*************************************************************************
-    EnsemblePagesTDAO  -  Classe chargée des échanges de la classse EnsemblePages 
-    avec le systeme de fichier
+                    	Page-Interface de la classe Page
+	La classe Page est conçue pour représenter une page du site internet 
+		de maniére à mettre en évidence les visites et leurs origines.
+
                              -------------------
     début                : 13/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
     e-mail               : horia-cristian.burca@insa-lyon.fr et ziggy.vergne@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <EnsemblePagesTDAO> (fichier EnsemblePagesTDAO.h) ----------------
-#if ! defined ( ENSEMBLEPAGESTDAO_H )
-#define ENSEMBLEPAGESTDAO_H
+//---------- Interface de la classe <Page> (fichier Page.h) ----------------
+#if ! defined ( PAGE_H )
+#define PAGE_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include EnsemblePages.h
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <EnsemblePagesTDAO>
+// Rôle de la classe <Page>
 //
 //
 //------------------------------------------------------------------------
 
-class EnsemblePagesTDAO
+class Page : public Ancetre
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -38,7 +39,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    EnsemblePagesTDAO & operator = ( const EnsemblePagesTDAO & unEnsemblePagesTDAO );
+    Page & operator = ( const Page & unPage );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,19 +47,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    EnsemblePagesTDAO ( const EnsemblePagesTDAO & unEnsemblePagesTDAO );
+    Page ( const Page & unPage );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    EnsemblePagesTDAO ( );
+    Page ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~EnsemblePagesTDAO ( );
+    virtual ~Page ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -73,7 +74,7 @@ protected:
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <EnsemblePagesTDAO>
+//-------------------------------- Autres définitions dépendantes de <Page>
 
-#endif // ENSEMBLEPAGESTDAO_H
+#endif // Page_H
 

@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Xxx  -  description
+                           RequeteTDAO  -  description
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 13/01/2017
+    copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
+    e-mail               : horia-cristian.burca@insa-lyon.fr et ziggy.vergne@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
+//---------- Réalisation de la classe <RequeteTDAO> (fichier RequeteTDAO.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,14 +15,14 @@ using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
-#include "Xxx.h"
+#include "RequeteTDAO.h"
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
+// type RequeteTDAO::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
@@ -30,7 +30,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
+RequeteTDAO & RequeteTDAO::operator = ( const RequeteTDAO & unRequeteTDAO )
 // Algorithme :
 //
 {
@@ -38,34 +38,34 @@ Xxx & Xxx::operator = ( const Xxx & unXxx )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
+RequeteTDAO::RequeteTDAO ( const RequeteTDAO & unRequeteTDAO )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
+    cout << "Appel au constructeur de copie de <RequeteTDAO>" << endl;
 #endif
-} //----- Fin de Xxx (constructeur de copie)
+} //----- Fin de RequeteTDAO (constructeur de copie)
 
 
-Xxx::Xxx ( )
+RequeteTDAO::RequeteTDAO ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
+    cout << "Appel au constructeur de <RequeteTDAO>" << endl;
 #endif
-} //----- Fin de Xxx
+} //----- Fin de RequeteTDAO
 
 
-Xxx::~Xxx ( )
+RequeteTDAO::~RequeteTDAO ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
+    cout << "Appel au destructeur de <RequeteTDAO>" << endl;
 #endif
-} //----- Fin de ~Xxx
+} //----- Fin de ~RequeteTDAO
 
 
 //------------------------------------------------------------------ PRIVE
