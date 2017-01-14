@@ -17,6 +17,7 @@
 using namespace std;
 #include <iostream>
 #include <string>
+#include <map>
 //------------------------------------------------------ Include personnel
 #include "EnsemblePages.h"
 
@@ -37,6 +38,15 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+map <unsigned int, string> EnsemblePages::ObtenirLesNPremiers(int n) const
+{
+	return 0;
+}//----- Fin de ObtenirLesNPremiers
+
+unsigned int EnsemblePages::AjouterRequete (const Requete& r)
+{
+	return 0;
+}//----- Fin de AjouterRequete
 
 //------------------------------------------------- Surcharge d'opérateurs
 EnsemblePages & EnsemblePages::operator = ( const EnsemblePages & unEnsemblePages )
@@ -57,10 +67,11 @@ EnsemblePages::EnsemblePages ( const EnsemblePages & unEnsemblePages )
 } //----- Fin de EnsemblePages (constructeur de copie)
 
 
-EnsemblePages::EnsemblePages ( )
+EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExtensions):hDebut(heureDebut),hFin(heureFin),sansExtensionsImgJsCss(restrictionsExtensions)
 // Algorithme :
 //
 {
+
 #ifdef MAP
     cout << "Appel au constructeur de <EnsemblePages>" << endl;
 #endif

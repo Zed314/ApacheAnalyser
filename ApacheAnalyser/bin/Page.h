@@ -39,7 +39,7 @@ public:
     // Contrat :
     //
     
-	unsigned int AjouterUnReferenceur(string urlDuReferenceur);
+	unsigned int AjouterUnReferenceur(const string & urlDuReferenceur);
 	 // Mode d'emploi :Ajoute dans la liste des URL référençant l'URL du
 	 // document internet passé en paramétre. Si l'URL est déjà enregistrée,
 	 // on incrémente le nombre de "Hits" associé à cette URL référente.
@@ -94,7 +94,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
-map <string, unsigned int> PagesReferentes;
+map <string, unsigned int> pagesReferentes;
 
 unsigned int nbHitsTotal;
 

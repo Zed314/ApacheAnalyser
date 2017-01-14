@@ -17,6 +17,8 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <Page.h>
 #include <Requete.h>
+#include <map>
+#include <set>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -42,16 +44,20 @@ public:
     // Contrat :
     //
 	
-	multimap <int, string> GetTopN (int n = 10) const;
+	map <unsigned int, string> ObtenirLesNPremiers (int n = 10) const;
 	// Mode d'emploi : 
-	//	renvoie les N premieres paires de nombres de hits total et pages tries par ordre decroisant de nombre de hits
+	//	renvoie les N premieres paires de nombres de hits total et pages tries par ordre decroissant de nombre de hits
 	// Contrat :
 	//
 	
-	int AjouterRequete (const Requete& r);
+	unsigned int AjouterRequete (const Requete& r);
 	// Mode d'emploi :
-	//	ajoute les pages referante et cible de la Requete r dans l'ensemble s'elles ne sont pas deja presents
-	//	renvoie le nombre de pages ajoutees
+	// Utilise l'URL du document et l'URL du document référent pour les ajouter aux différents ensembles de la classe.
+	// L'ajout de la requête ne s'effectue que si elle convient aux contraintes fixées à la création de la classe.
+	// Si c'est le cas, l'URL du document référent est ajouté à la liste des URL référentes du document chargé.
+	// De plus, on ajoute les deux URL à la liste des pages (pageHits) si elle n'y sont pas.
+	// Le nombre de Hits associé au document chargé est incrémenté 
+	//	Renvoie le nombre de pages ajoutees au classement global des documents
 	// Contrat :
 	//
 
@@ -70,7 +76,7 @@ public:
     // Contrat :
     //
 
-    EnsemblePages (int hdebut = 0, int hfin = 24, bool ext = false);
+    EnsemblePages  (int heureDebut = 0, int heureFin = 24, bool restrictionsExtensions = false);
     // Mode d'emploi :
     //	cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
 	//	et avec ou sans les extensions d'image, css, javascript en dependence de ext
@@ -96,11 +102,13 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs privés
-	int hdebut;
-	int hfin;
-	bool sansExtImgJsCss;
-	multimap <int, string> pageHits;
-	multimap <string, Page> pages;
+
+ 	int hDebut;
+	int hFin;
+	bool sansExtensionsImgJsCss;
+
+	set <int, string> pageHits;
+	map <string, Page> pages;
 //---------------------------------------------------------- Classes amies
 
 friend class EnsemblePagesTDAO;

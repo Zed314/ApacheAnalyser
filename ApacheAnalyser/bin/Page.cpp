@@ -34,28 +34,28 @@ using namespace std;
 
 map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeDebut() const
 {
-	return PagesReferentes.cbegin();
+	return pagesReferentes.cbegin();
 }//----- Fin de ObtenirUnIterateurDeDebut
 
 map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeFin() const
 {
-	return PagesReferentes.cend();
+	return pagesReferentes.cend();
 }//----- Fin de ObtenirUnIterateurDeFin
 
-unsigned int Page::AjouterUnReferenceur(string urlDuReferenceur)
+unsigned int Page::AjouterUnReferenceur(const string & urlDuReferenceur)
 {
-	 if(PagesReferentes.count(urlDuReferenceur)==1)
+	 if(pagesReferentes.count(urlDuReferenceur)==1)
 	 {
-	 	PagesReferentes[urlDuReferenceur]++;
+	 	pagesReferentes[urlDuReferenceur]++;
 	 }
 	 else
 	 {
-	 	PagesReferentes[urlDuReferenceur]=1;
+	 	pagesReferentes[urlDuReferenceur]=1;
 	 }
 	 
 	nbHitsTotal++;
 	return nbHitsTotal;
-}//----- Fin de ObtenirUnIterateurDeFin
+}//----- Fin de AjouterUnReferenceur
 
 //------------------------------------------------- Surcharge d'opérateurs
 Page & Page::operator = ( const Page & unPage )
