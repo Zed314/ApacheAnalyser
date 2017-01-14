@@ -36,7 +36,7 @@ public:
     //
     // Contrat :
     //
-    bool estUneExtensionImgCssJS()const;
+    bool AUneExtensionImgCssJS()const;
     // Mode d'emploi : Renvoit Vrai si la requete porte sur un document Web
     //	au format Image, CSS ou Javascript
     // Contrat :
@@ -76,7 +76,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-	bool estUneExtensionImgCssJS;
+	bool aUneExtensionImgCssJS;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Requete>

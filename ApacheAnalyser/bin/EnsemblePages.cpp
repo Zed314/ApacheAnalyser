@@ -46,6 +46,7 @@ map <unsigned int, string> EnsemblePages::ObtenirLesNPremiers(int n) const
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 {
+	if(r.AUneExtensionImgCssJS()==)
 	return 0;
 }//----- Fin de AjouterRequete
 
