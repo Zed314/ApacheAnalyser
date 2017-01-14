@@ -76,8 +76,19 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			}
 			else
 			{
-				iterateurPages->second.AjouterUnReferenceur(referenceur);
-				pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
+				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
+				//Si le document a déjà été indexé dans pageHits.
+				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
+				//Cela arrive si le document a auparavant uniquement étémentionné comme étant un référenceur.
+				//Ainsi une page vide a été créé mais pas d'entrée dans pageHits. Dans ce cas, on n'a pas besoin de
+				//Chercher à supprimer l'entrée dans pageHits.
+				if(nbHitsDocument!=1)
+				{
+
+				
+					pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
+				}
+				
 				pageHits.insert(  HitsParRessource(nbHitsDocument,URIDeLaRequete));
 			}
 			iterateurPages=pages.find(referenceur);

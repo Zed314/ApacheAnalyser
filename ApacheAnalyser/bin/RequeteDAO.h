@@ -13,6 +13,7 @@
 #define REQUETETDAO_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
 #include "Requete.h"
 #include "EnsemblePages.h"
 //------------------------------------------------------------- Constantes
@@ -55,7 +56,7 @@ public:
     // Contrat :
     //
 
-    RequeteTDAO ( );
+    RequeteTDAO (string nomDuFichier);
     // Mode d'emploi :
     //
     // Contrat :
@@ -73,7 +74,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+	string fichierSource;
 };
 
 //-------------------------------- Autres définitions dépendantes de <RequeteTDAO>
