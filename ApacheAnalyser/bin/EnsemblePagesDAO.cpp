@@ -1,5 +1,5 @@
 /*************************************************************************
-    	EnsemblePagesTDAO  - Réalisation de la classe EnsemblePagesTDAO
+    	EnsemblePagesDAO  - Réalisation de la classe EnsemblePagesDAO
     	
  				Classe chargée des échanges de la classe EnsemblePages 
  									avec le systeme de fichier.
@@ -9,31 +9,67 @@
     e-mail               : horia-cristian.burca@insa-lyon.fr et ziggy.vergne@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <EnsemblePagesTDAO> (fichier EnsemblePagesTDAO.cpp) ------------
+//---------- Réalisation de la classe <EnsemblePagesDAO> (fichier EnsemblePagesDAO.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
-#include "EnsemblePagesTDAO.h"
-
+#include "EnsemblePagesDAO.h"
+#include <string>
+//#include "EnsemblePages.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type EnsemblePagesTDAO::Méthode ( liste des paramètres )
+// type EnsemblePagesDAO::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
 //} //----- Fin de Méthode
+bool EnsemblePagesDAO::ExisteEtNonProtegeEnLecture() const
+{
+	ifstream fluxEntree(nomFichierSortie);
+	
+	return !fluxEntree.fail();
+}
+bool EnsemblePagesDAO::EstVide() const
+{
+	if(!this->ExisteEtNonProtegeEnLecture())
+	{
+		return true;
+	}
+	ifstream fluxEntree(nomFichierSortie);
+	fluxEntree.clear();
+	fluxEntree.seekg(0, ios::beg);
+	streampos diff=fluxEntree.tellg();
+	fluxEntree.seekg(0, ios::end);
+	diff=fluxEntree.tellg()-diff;
+   if(diff!=0)
+   {
+   	return false;
+   }
+   return true;
+	
+}
 
 
+
+bool EnsemblePagesDAO::EcriturePossible() const
+{
+	if(fichierSortie)
+	{
+		return true;
+	}
+	return false;
+}
 //------------------------------------------------- Surcharge d'opérateurs
-EnsemblePagesTDAO & EnsemblePagesTDAO::operator = ( const EnsemblePagesTDAO & unEnsemblePagesTDAO )
+EnsemblePagesDAO & EnsemblePagesDAO::operator = ( const EnsemblePagesDAO & unEnsemblePagesDAO )
 // Algorithme :
 //
 {
@@ -41,34 +77,35 @@ EnsemblePagesTDAO & EnsemblePagesTDAO::operator = ( const EnsemblePagesTDAO & un
 
 
 //-------------------------------------------- Constructeurs - destructeur
-EnsemblePagesTDAO::EnsemblePagesTDAO ( const EnsemblePagesTDAO & unEnsemblePagesTDAO )
+EnsemblePagesDAO::EnsemblePagesDAO ( const EnsemblePagesDAO & unEnsemblePagesDAO )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <EnsemblePagesTDAO>" << endl;
+    cout << "Appel au constructeur de copie de <EnsemblePagesDAO>" << endl;
 #endif
-} //----- Fin de EnsemblePagesTDAO (constructeur de copie)
+} //----- Fin de EnsemblePagesDAO (constructeur de copie)
 
 
-EnsemblePagesTDAO::EnsemblePagesTDAO ( )
+EnsemblePagesDAO::EnsemblePagesDAO (string nomFichier):nomFichierSortie(nomFichier)
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <EnsemblePagesTDAO>" << endl;
+    cout << "Appel au constructeur de <EnsemblePagesDAO>" << endl;
 #endif
-} //----- Fin de EnsemblePagesTDAO
+fichierSortie=ofstream(nomFichierSortie,ios::app);
+} //----- Fin de EnsemblePagesDAO
 
 
-EnsemblePagesTDAO::~EnsemblePagesTDAO ( )
+EnsemblePagesDAO::~EnsemblePagesDAO ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <EnsemblePagesTDAO>" << endl;
+    cout << "Appel au destructeur de <EnsemblePagesDAO>" << endl;
 #endif
-} //----- Fin de ~EnsemblePagesTDAO
+} //----- Fin de ~EnsemblePagesDAO
 
 
 //------------------------------------------------------------------ PRIVE

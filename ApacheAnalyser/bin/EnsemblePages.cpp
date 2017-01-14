@@ -54,10 +54,12 @@ const set <HitsParRessource,pageHitsComparator> EnsemblePages::ObtenirLesNPremie
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 {
+	Page pageAAjouter;
 	unsigned int nbDocumentsAjoutes=0;
 	if(!r.AUneExtensionImgCssJS()||extensionsImgJsCssAutorisees)
 	{
-		if(r.ObtenirHeureRequete()>=hDebut&&r.ObtenirHeureRequete()<=hFin)
+		unsigned int heureRequete=r.ObtenirHeure();
+		if(heureRequete>=hDebut&&heureRequete<=hFin)
 		{
 			string URIDeLaRequete=r.ObtenirURI();
 			string referenceur=r.ObtenirReferent();
@@ -67,7 +69,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
 			{
-				Page pageAAjouter;
+				//Page pageAAjouter;
 				nbHitsDocument=pageAAjouter.AjouterUnReferenceur(referenceur);
 				pages[URIDeLaRequete]=pageAAjouter;
 				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
@@ -83,9 +85,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 				//Ainsi une page vide a été créé mais pas d'entrée dans pageHits. Dans ce cas, on n'a pas besoin de
 				//Chercher à supprimer l'entrée dans pageHits.
 				if(nbHitsDocument!=1)
-				{
-
-				
+				{			
 					pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
 				
@@ -94,7 +94,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			iterateurPages=pages.find(referenceur);
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
 			{
-				Page pageAAjouter;
+			//Page pageAAjouter;
 				pages[referenceur]=pageAAjouter;
 				nbDocumentsAjoutes++;
 			}

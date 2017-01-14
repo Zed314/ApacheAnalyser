@@ -1,5 +1,5 @@
 /*************************************************************************
-    	EnsemblePagesTDAO  - Interface de la classe EnsemblePagesTDAO
+    	EnsemblePagesDAO  - Interface de la classe EnsemblePagesDAO
     	
 		 Classe chargée des échanges de la classe EnsemblePages 
 							 avec le systeme de fichier.
@@ -9,19 +9,21 @@
     e-mail               : horia-cristian.burca@insa-lyon.fr et ziggy.vergne@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <EnsemblePagesTDAO> (fichier EnsemblePagesTDAO.h) ----------------
-#if ! defined ( ENSEMBLEPAGESTDAO_H )
-#define ENSEMBLEPAGESTDAO_H
-
+//---------- Interface de la classe <EnsemblePagesDAO> (fichier EnsemblePagesDAO.h) ----------------
+#if ! defined ( ENSEMBLEPAGESDAO_H )
+#define ENSEMBLEPAGESDAO_H
+using namespace std;
 //--------------------------------------------------- Interfaces utilisées
-#include "EnsemblePages.h"
+#include <string>
+#include <fstream>
+//#include "EnsemblePages.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <EnsemblePagesTDAO>
+// Rôle de la classe <EnsemblePagesDAO>
 // Classe chargée des échanges de la classe EnsemblePages 
 // avec le systeme de fichier. Permet l'extraction des données depuis 
 // un objet EnsemblePages pour générer un fichier .dot 
@@ -29,7 +31,7 @@
 //
 //------------------------------------------------------------------------
 
-class EnsemblePagesTDAO
+class EnsemblePagesDAO
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -40,10 +42,21 @@ public:
     //
     // Contrat :
     //
-
-
+    bool ExisteEtNonProtegeEnLecture() const;
+    // Mode d'emploi : Permet de savoir s'il existe un fichier portant
+    // le nom "nomFichierSortie". On ne fait pas la différence entre un
+    // fichier n'existant pas et un fichier protégé en lecture.
+    
+    bool EstVide() const;
+    // Mode d'emploi : Permet de savoir s'il existe un fichier portant
+    // le nom "nomFichierSortie" et si il est vide.
+    //Si le fichier n'existe pas ou qu'il est protégé en lecture, il est considéré
+    //comme vide.
+    bool EcriturePossible()const;
+     // Mode d'emploi : Permet de savoir si on peut écrire dans le fichier, c'est
+     // à dire si il n'est pas protégé en écriture
 //------------------------------------------------- Surcharge d'opérateurs
-    EnsemblePagesTDAO & operator = ( const EnsemblePagesTDAO & unEnsemblePagesTDAO );
+    EnsemblePagesDAO & operator = ( const EnsemblePagesDAO & unEnsemblePagesDAO );
     // Mode d'emploi :
     //
     // Contrat :
@@ -51,19 +64,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    EnsemblePagesTDAO ( const EnsemblePagesTDAO & unEnsemblePagesTDAO );
+    EnsemblePagesDAO ( const EnsemblePagesDAO & unEnsemblePagesDAO );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    EnsemblePagesTDAO ( );
+    EnsemblePagesDAO (string nomFichier);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~EnsemblePagesTDAO ( );
+    virtual ~EnsemblePagesDAO ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -75,10 +88,12 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+string nomFichierSortie;
+ofstream fichierSortie;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <EnsemblePagesTDAO>
+//-------------------------------- Autres définitions dépendantes de <EnsemblePagesDAO>
 
-#endif // ENSEMBLEPAGESTDAO_H
+#endif // ENSEMBLEPAGESDAO_H
 
