@@ -22,7 +22,29 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+struct  HitsParRessource{
+	unsigned int nbHits;
+	string localisationDeLaRessource;
+	 HitsParRessource(unsigned nombreHits=0,string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
+	 {
+	 }
+};
 
+struct pageHitsComparator
+{
+  bool operator()(const HitsParRessource & a,const HitsParRessource & b) const
+  {
+  		if(a.nbHits==b.nbHits)
+  		{
+  			return a.localisationDeLaRessource<b.localisationDeLaRessource;
+  		}
+    	else
+    	{
+    		return a.nbHits>b.nbHits;
+		}
+  }
+  
+};
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>
 //	La classe EnsemblePages est chargée du stockage en mémoire d'informations 
@@ -44,7 +66,7 @@ public:
     // Contrat :
     //
 	
-	map <unsigned int, string> ObtenirLesNPremiers (int n = 10) const;
+	const set <HitsParRessource,pageHitsComparator> ObtenirLesNPremiers (int n = 10) const;
 	// Mode d'emploi : 
 	//	renvoie les N premieres paires de nombres de hits total et pages tries par ordre decroissant de nombre de hits
 	// Contrat :
@@ -54,10 +76,11 @@ public:
 	// Mode d'emploi :
 	// Utilise l'URL du document et l'URL du document référent pour les ajouter aux différents ensembles de la classe.
 	// L'ajout de la requête ne s'effectue que si elle convient aux contraintes fixées à la création de la classe.
-	// Si c'est le cas, l'URL du document référent est ajouté à la liste des URL référentes du document chargé.
-	// De plus, on ajoute les deux URL à la liste des pages (pageHits) si elle n'y sont pas.
-	// Le nombre de Hits associé au document chargé est incrémenté 
-	//	Renvoie le nombre de pages ajoutees au classement global des documents
+	// Si il n'existe pas d'Objet Page associé aux URL, ils seront créés.
+	// Dans tous les cas l'URL du document référent est ajouté à la liste des URL référentes du document chargé.
+	// De plus, on ajoute l'URL du document chargé au classement si elle n'y est pas.
+	// Le nombre de Hits associé au document chargé est incrémenté.
+	//	Renvoie le nombre d'objet Page créé (maximum 2)
 	// Contrat :
 	//
 
@@ -78,7 +101,7 @@ public:
 
     EnsemblePages  (int heureDebut = 0, int heureFin = 24, bool restrictionsExtensions = false);
     // Mode d'emploi :
-    //	cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
+    //cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
 	//	et avec ou sans les extensions d'image, css, javascript en dependence de ext
     // Contrat :
     //
@@ -103,11 +126,11 @@ protected:
 private:
 //------------------------------------------------------- Attributs privés
 
- 	int hDebut;
-	int hFin;
-	bool sansExtensionsImgJsCss;
+ 	unsigned int hDebut;
+	unsigned int hFin;
+	bool extensionsImgJsCssAutorisees;
 
-	set <int, string> pageHits;
+	set <HitsParRessource,pageHitsComparator> pageHits;
 	map <string, Page> pages;
 //---------------------------------------------------------- Classes amies
 

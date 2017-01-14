@@ -38,16 +38,61 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-map <unsigned int, string> EnsemblePages::ObtenirLesNPremiers(int n) const
+const set <HitsParRessource,pageHitsComparator> EnsemblePages::ObtenirLesNPremiers(int n) const
 {
-	map <unsigned int, string> a; return a;
+	int i;
+	set <HitsParRessource,pageHitsComparator>::const_iterator itDernierElementChoisi=pageHits.cbegin();
+	for(i=0;i<n&&itDernierElementChoisi!=pageHits.cend();i++)
+	{
+		itDernierElementChoisi++;
+	}
+	
+	const set <HitsParRessource,pageHitsComparator> classement (pageHits.cbegin(),itDernierElementChoisi);
+	return classement;
 	
 }//----- Fin de ObtenirLesNPremiers
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 {
-	if(r.AUneExtensionImgCssJS()==)
-	return 0;
+	unsigned int nbDocumentsAjoutes=0;
+	if(!r.AUneExtensionImgCssJS()||extensionsImgJsCssAutorisees)
+	{
+		if(r.ObtenirHeureRequete()>=hDebut&&r.ObtenirHeureRequete()<=hFin)
+		{
+			string URIDeLaRequete=r.ObtenirURI();
+			string referenceur=r.ObtenirReferent();
+			unsigned int nbHitsDocument;
+			
+			map <string,Page>::iterator iterateurPages=pages.find(URIDeLaRequete);
+
+			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
+			{
+				Page pageAAjouter;
+				nbHitsDocument=pageAAjouter.AjouterUnReferenceur(referenceur);
+				pages[URIDeLaRequete]=pageAAjouter;
+				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
+				nbDocumentsAjoutes++;
+				
+			}
+			else
+			{
+				iterateurPages->second.AjouterUnReferenceur(referenceur);
+				pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
+				pageHits.insert(  HitsParRessource(nbHitsDocument,URIDeLaRequete));
+			}
+			iterateurPages=pages.find(referenceur);
+			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
+			{
+				Page pageAAjouter;
+				pages[referenceur]=pageAAjouter;
+				nbDocumentsAjoutes++;
+			}
+			
+			
+		}
+	}
+	return nbDocumentsAjoutes;
+	
 }//----- Fin de AjouterRequete
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -69,14 +114,41 @@ EnsemblePages::EnsemblePages ( const EnsemblePages & unEnsemblePages )
 } //----- Fin de EnsemblePages (constructeur de copie)
 
 
-EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExtensions):hDebut(heureDebut),hFin(heureFin),sansExtensionsImgJsCss(restrictionsExtensions)
+EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExtensions):extensionsImgJsCssAutorisees(!restrictionsExtensions)
 // Algorithme :
 //
 {
-
-#ifdef MAP
+	#ifdef MAP
     cout << "Appel au constructeur de <EnsemblePages>" << endl;
 #endif
+	if(heureDebut<0)
+	{
+		heureDebut=0;
+	}
+	else if(heureDebut>=24)
+	{
+		heureDebut=23;
+	}
+	if(heureFin>=24)
+	{
+		heureFin=23;
+	}
+	else if(heureFin<0)
+	{
+		heureFin=0;
+	}
+	
+	if(heureFin<heureDebut)
+	{
+		int heureTemp=heureFin;
+		heureFin=heureDebut;
+		heureDebut=heureTemp;
+		
+	}
+
+	hDebut=heureDebut;
+	hFin=heureFin;
+
 } //----- Fin de EnsemblePages
 
 
