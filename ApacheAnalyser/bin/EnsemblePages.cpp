@@ -1,5 +1,8 @@
 /*************************************************************************
-                           EnsemblePages  -  un ensemble de documents web 
+          EnsemblePages  -  Interface de la classe EnsemblePages
+          
+ 				La classe EnsemblePages modélise une collection de 
+ 					pages web du nombre de visites associé
                              -------------------
     début                : 10/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne

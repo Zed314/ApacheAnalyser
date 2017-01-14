@@ -1,6 +1,8 @@
 /*************************************************************************
-    EnsemblePagesTDAO  -  Classe chargée des échanges de la classse EnsemblePages 
-    avec le systeme de fichier
+    	EnsemblePagesTDAO  - Interface de la classe EnsemblePagesTDAO
+    	
+		 Classe chargée des échanges de la classe EnsemblePages 
+							 avec le systeme de fichier.
                              -------------------
     début                : 13/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
@@ -12,7 +14,7 @@
 #define ENSEMBLEPAGESTDAO_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include EnsemblePages.h
+#include "EnsemblePages.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -20,7 +22,10 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePagesTDAO>
-//
+// Classe chargée des échanges de la classe EnsemblePages 
+// avec le systeme de fichier. Permet l'extraction des données depuis 
+// un objet EnsemblePages pour générer un fichier .dot 
+// lisible par l'outil GraphViz.
 //
 //------------------------------------------------------------------------
 

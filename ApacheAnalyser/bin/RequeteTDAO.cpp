@@ -1,5 +1,7 @@
 /*************************************************************************
-                           RequeteTDAO  -  description
+             RequeteTDAO  -  Réalisation de la classe RequeteTDAO
+	RequeteTDAO est une classe permettant l'extraction des requetes depuis 
+		un fichier ainsi que son utilisation par la classe EnsemblePages
                              -------------------
     début                : 13/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
@@ -16,7 +18,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "RequeteTDAO.h"
-
+#include "EnsemblePages.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC

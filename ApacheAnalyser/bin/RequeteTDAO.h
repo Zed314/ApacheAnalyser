@@ -1,5 +1,7 @@
 /*************************************************************************
-                           RequeteTDAO  -  description
+             RequeteTDAO  -  Interface de la classe RequeteTDAO
+	RequeteTDAO est une classe permettant l'extraction des requetes depuis 
+		un fichier ainsi que son utilisation par la classe EnsemblePages
                              -------------------
     début                : 13/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
@@ -11,15 +13,18 @@
 #define REQUETETDAO_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include Requete.h
+#include "Requete.h"
+#include "EnsemblePages.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <RequeteTDAO>
-//
-//
+//	RequeteTDAO est une classe permettant l'extraction des requetes depuis 
+// un fichier ainsi que son utilisation par la classe EnsemblePages.
+// Pour cela, elle est en mesure de lire un fichier à partir de son nom
+// et de transmettre à un objet Requete une ligne de logs
 //------------------------------------------------------------------------
 
 class RequeteTDAO

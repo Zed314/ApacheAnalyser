@@ -14,7 +14,9 @@
 #define PAGE_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include <iterator>
+#include <map>
+#include <string>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -25,7 +27,7 @@
 //
 //------------------------------------------------------------------------
 
-class Page : public Ancetre
+class Page
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -36,8 +38,28 @@ public:
     //
     // Contrat :
     //
-
-
+    
+	unsigned int AjouterUnReferenceur(string urlDuReferenceur);
+	 // Mode d'emploi :Ajoute dans la liste des URL référençant l'URL du
+	 // document internet passé en paramétre. Si l'URL est déjà enregistrée,
+	 // on incrémente le nombre de "Hits" associé à cette URL référente.
+	 // Dans les deux cas, on incrémente le nombre de Hits associé à l'objet Page
+	 //courant. 
+	 // Retourne le nombre de Hits associé à la Page après incrémentation
+    // Contrat :
+    //
+	
+	map <string,unsigned int >::const_iterator ObtenirUnIterateurDeDebut() const;
+	 // Mode d'emploi : Retourne un const_iterator pointant sur le début de la
+	 // liste des URL référençant la page
+    // Contrat :
+    //
+	
+	map <string,unsigned int >::const_iterator ObtenirUnIterateurDeFin() const;
+	 // Mode d'emploi : Retourne un const_iterator pointant sur la fin de la
+	 // liste des URL référençant la page
+    // Contrat :
+    //
 //------------------------------------------------- Surcharge d'opérateurs
     Page & operator = ( const Page & unPage );
     // Mode d'emploi :
@@ -71,6 +93,11 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+
+map <string, unsigned int> PagesReferentes;
+
+unsigned int nbHitsTotal;
+
 
 };
 

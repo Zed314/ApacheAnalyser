@@ -1,5 +1,8 @@
 /*************************************************************************
-                      EnsemblePagesTDAO  -  description
+    	EnsemblePagesTDAO  - Réalisation de la classe EnsemblePagesTDAO
+    	
+ 				Classe chargée des échanges de la classe EnsemblePages 
+ 									avec le systeme de fichier.
                              -------------------
     début                : 13/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne

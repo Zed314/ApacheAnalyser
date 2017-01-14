@@ -18,7 +18,9 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Page.h"
-
+#include <string>
+#include <iterator>
+#include <map>
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,6 +32,30 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeDebut() const
+{
+	return PagesReferentes.cbegin();
+}//----- Fin de ObtenirUnIterateurDeDebut
+
+map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeFin() const
+{
+	return PagesReferentes.cend();
+}//----- Fin de ObtenirUnIterateurDeFin
+
+unsigned int Page::AjouterUnReferenceur(string urlDuReferenceur)
+{
+	 if(PagesReferentes.count(urlDuReferenceur)==1)
+	 {
+	 	PagesReferentes[urlDuReferenceur]++;
+	 }
+	 else
+	 {
+	 	PagesReferentes[urlDuReferenceur]=1;
+	 }
+	 
+	nbHitsTotal++;
+	return nbHitsTotal;
+}//----- Fin de ObtenirUnIterateurDeFin
 
 //------------------------------------------------- Surcharge d'opérateurs
 Page & Page::operator = ( const Page & unPage )
@@ -50,7 +76,7 @@ Page::Page ( const Page & unPage )
 } //----- Fin de Page (constructeur de copie)
 
 
-Page::Page ( )
+Page::Page ( ):nbHitsTotal(0)
 // Algorithme :
 //
 {

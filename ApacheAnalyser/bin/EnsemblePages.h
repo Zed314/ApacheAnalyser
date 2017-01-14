@@ -1,5 +1,9 @@
 /*************************************************************************
-                           EnsemblePages  -  un ensemble de documents web 
+          EnsemblePages  -  Interface de la classe EnsemblePages
+          
+ 				La classe EnsemblePages modélise une collection de 
+ 					pages web du nombre de visites associé
+ 	
                              -------------------
     début                : 10/01/2017
     copyright            : (C) 2017 par Horia-Cristian Burca et Ziggy Vergne
@@ -19,8 +23,11 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>
-//	la classe modelise une collection de documents web (Pages)
-//	elle permets aussi de trier les pages en fonction de nombre de hits de chacune
+//	La classe EnsemblePages est chargée du stockage en mémoire d'informations 
+// relatives au visites des documents webs à partir d'objets "Requete". 
+// La classe EnsemblePages est également chargée d'extraire et de restituer 
+// des informations à partir des données sur les visites des documents
+// webs, telles qu'une collection ordonnée des pages les plus visitées.
 //------------------------------------------------------------------------
 
 class EnsemblePages 
