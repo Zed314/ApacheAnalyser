@@ -12,7 +12,7 @@
 //---------- Interface de la classe <Page> (fichier Page.h) ----------------
 #if ! defined ( PAGE_H )
 #define PAGE_H
-
+using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 #include <iterator>
 #include <map>

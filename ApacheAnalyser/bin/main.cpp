@@ -11,14 +11,24 @@ ainsi que la génération d'un graphe au format .dot lisible par l'outil GraphVi
 
 
 
-#include "Page.cpp"
+#include <iostream>
 #include <map>
 #include <string>
 #include <iterator>
 
-
+#include "Page.h"
+#include "Requete.h"
 
 using namespace std;
+
+void testRequete()
+{
+	string texteDeTest="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF18.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
+	Requete requeteDeTest(texteDeTest);
+	
+}
+
+
 
 void testPage()
 {
@@ -39,7 +49,8 @@ void testPage()
 
 int main(int argc, char** argv)
 {
-	testPage();
+	//testPage();
+	testRequete();
 	return 0;
 }
 

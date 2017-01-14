@@ -36,7 +36,11 @@ public:
     //
     // Contrat :
     //
-
+    bool estUneExtensionImgCssJS()const;
+    // Mode d'emploi : Renvoit Vrai si la requete porte sur un document Web
+    //	au format Image, CSS ou Javascript
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     Requete & operator = ( const Requete & unRequete );
@@ -72,7 +76,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+	bool estUneExtensionImgCssJS;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Requete>

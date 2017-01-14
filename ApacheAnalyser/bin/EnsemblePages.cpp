@@ -40,7 +40,8 @@ using namespace std;
 
 map <unsigned int, string> EnsemblePages::ObtenirLesNPremiers(int n) const
 {
-	return 0;
+	map <unsigned int, string> a; return a;
+	
 }//----- Fin de ObtenirLesNPremiers
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)

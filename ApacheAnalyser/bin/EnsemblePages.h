@@ -15,10 +15,10 @@
 #define EnsemblePages_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <Page.h>
-#include <Requete.h>
 #include <map>
 #include <set>
+#include "Page.h"
+#include "Requete.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

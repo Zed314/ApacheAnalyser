@@ -15,12 +15,12 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
-//------------------------------------------------------ Include personnel
-#include "Page.h"
 #include <string>
 #include <iterator>
 #include <map>
+//------------------------------------------------------ Include personnel
+#include "Page.h"
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
