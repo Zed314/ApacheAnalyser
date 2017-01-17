@@ -24,6 +24,18 @@ ainsi que la génération d'un graphe au format .dot lisible par l'outil GraphVi
 
 using namespace std;
 
+string HitsParRessourceSetToString (set <HitsParRessource,pageHitsComparator> hitsSet)
+{
+	string output = "";
+	set <HitsParRessource,pageHitsComparator>::const_iterator it;
+	for (it = hitsSet.cbegin(); it != hitsSet.cend(); it++)
+	{
+		output += (*it).ToString() + "\r\n";	
+	}
+
+	return output;
+}
+
 void testRequete()
 {
 	string texteDeTest="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF18.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
@@ -65,45 +77,12 @@ string texteDeTest="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4I
 	cout<<"Ajout requete"<<endl;
 	ens.AjouterRequete(requeteDeTest);
 }
-
-void testEchantillon()
-{
-EnsemblePages ens;
-string texteDeTest[5];
-texteDeTest[0]="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF18.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
-texteDeTest[1]="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF19.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
-texteDeTest[2]="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF20.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
-texteDeTest[3]="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF20.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
-texteDeTest[4]="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF20.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
-for(int i=0;i<5;i++)
-{
-	Requete requeteDeTest(texteDeTest[i]);
-	ens.AjouterRequete(requeteDeTest);
-	
-}
-const set <HitsParRessource,pageHitsComparator> top= ens.ObtenirLesNPremiers(10);
-	set <HitsParRessource,pageHitsComparator>::const_iterator ite=top.begin();
-	for(;ite!=top.end();ite++)
-	{
-		cout<<ite->nbHits<<endl;
-		cout<<ite->localisationDeLaRessource<<endl;
-	}
-		
-
-}
 void testRequeteDAO()
 {
-	RequeteDAO req("c");
+	RequeteDAO req("../anonyme.log");
 	EnsemblePages ens;
 	req.ExtraireLesDonnees(ens);
-	//const set <HitsParRessource,pageHitsComparator> ObtenirLesNPremiers (int n = 10) const;
-	const set <HitsParRessource,pageHitsComparator> top= ens.ObtenirLesNPremiers(10);
-	set <HitsParRessource,pageHitsComparator>::const_iterator ite=top.begin();
-	for(;ite!=top.end();ite++)
-	{
-		cout<<ite->nbHits<<endl;
-		cout<<ite->localisationDeLaRessource<<endl;
-	}
+	cout << HitsParRessourceSetToString(ens.ObtenirLesNPremiers(10));	
 		
 }
 void testEnsemblePagesDAO()
@@ -128,6 +107,7 @@ void testEnsemblePagesDAO()
 bool peutEtreConvertie(const string &stringAVerifier)
 {
 	
+
 		return((stringAVerifier[0]>='0'&&stringAVerifier[0]<='9')||(stringAVerifier[0]=='-'&&(stringAVerifier[1]>='0'&&stringAVerifier[1]<='9')));
 	
 }
@@ -213,8 +193,7 @@ int main(int argc, char** argv)
 	
 	//testPage();
 	//testRequete();
-	//testRequeteDAO();
-	testEchantillon();
+	testRequeteDAO();
 	//testEnsemblePages();
 	return 0;
 }
