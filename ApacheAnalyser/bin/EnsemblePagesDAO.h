@@ -42,6 +42,11 @@ public:
     //
     // Contrat :
     //
+    
+    
+    bool ExporterUnGraphe( const EnsemblePages & ensembleARendre);
+    
+    
     bool ExisteEtNonProtegeEnLecture() const;
     // Mode d'emploi : Permet de savoir s'il existe un fichier portant
     // le nom "nomFichierSortie". On ne fait pas la différence entre un

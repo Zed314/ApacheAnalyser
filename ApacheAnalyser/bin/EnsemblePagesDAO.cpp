@@ -32,6 +32,17 @@ using namespace std;
 //
 //{
 //} //----- Fin de Méthode
+
+
+bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
+{
+	return false;
+}
+
+
+
+
+
 bool EnsemblePagesDAO::ExisteEtNonProtegeEnLecture() const
 {
 	ifstream fluxEntree(nomFichierSortie);
