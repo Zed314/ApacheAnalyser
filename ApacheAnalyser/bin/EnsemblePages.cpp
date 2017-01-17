@@ -54,6 +54,7 @@ const set <HitsParRessource,pageHitsComparator> EnsemblePages::ObtenirLesNPremie
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 {
+	//cout<<"Ajout d'une requete"<<endl;
 	Page pageAAjouter;
 	unsigned int nbDocumentsAjoutes=0;
 	if(!r.AUneExtensionImgCssJS()||extensionsImgJsCssAutorisees)
@@ -69,6 +70,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
 			{
+			//	cout<<"Ajout d'une nouvelle Page référéé : "<<r.ObtenirURI()<<endl;
 				//Page pageAAjouter;
 				nbHitsDocument=pageAAjouter.AjouterUnReferenceur(referenceur);
 				pages[URIDeLaRequete]=pageAAjouter;
@@ -78,7 +80,9 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			}
 			else
 			{
+			//	cout<<"Ajout d'un nouveau référenceur pour la page "<<r.ObtenirURI()<<endl;
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
+				cout<<nbHitsDocument<<endl;
 				//Si le document a déjà été indexé dans pageHits.
 				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
 				//Cela arrive si le document a auparavant uniquement étémentionné comme étant un référenceur.
@@ -86,9 +90,10 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 				//Chercher à supprimer l'entrée dans pageHits.
 				if(nbHitsDocument!=1)
 				{			
+				//	cout<<"Suppression de la page pour la réinsérer dans le set"<<endl;
 					pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
-				
+			//	cout<<"Insertion dans le set"<<endl;
 				pageHits.insert(  HitsParRessource(nbHitsDocument,URIDeLaRequete));
 			}
 			iterateurPages=pages.find(referenceur);

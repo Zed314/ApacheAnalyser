@@ -44,25 +44,30 @@ map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeFin() cons
 
 unsigned int Page::AjouterUnReferenceur(const string & urlDuReferenceur)
 {
+	//cout<<"On ajoute le référenceur "<<urlDuReferenceur<<endl;
+	//cout<<"Il a deja ete ref"<<pagesReferentes.count(urlDuReferenceur)<<endl;
 	 if(pagesReferentes.count(urlDuReferenceur)==1)
 	 {
-	 	pagesReferentes[urlDuReferenceur]++;
+	 //	cout<<"++"<<endl;
+	 	pagesReferentes[urlDuReferenceur]=pagesReferentes[urlDuReferenceur]+1;
 	 }
 	 else
 	 {
+	 //	cout<<"=1"<<endl;
 	 	pagesReferentes[urlDuReferenceur]=1;
 	 }
-	 
+	// cout<<"Et désormais"<<pagesReferentes.count(urlDuReferenceur)<<endl;
 	nbHitsTotal++;
 	return nbHitsTotal;
 }//----- Fin de AjouterUnReferenceur
 
 //------------------------------------------------- Surcharge d'opérateurs
-Page & Page::operator = ( const Page & unPage )
+/*Page & Page::operator = ( const Page & unPage )
 // Algorithme :
 //
 {
-} //----- Fin de operator =
+	
+} //----- Fin de operator =*/
 
 
 //-------------------------------------------- Constructeurs - destructeur
