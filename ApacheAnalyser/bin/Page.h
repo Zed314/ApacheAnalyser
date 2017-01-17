@@ -61,7 +61,7 @@ public:
     // Contrat :
     //
 //------------------------------------------------- Surcharge d'opérateurs
-    Page & operator = ( const Page & unPage );
+  /*  Page & operator = ( const Page & unPage );*/
     // Mode d'emploi :
     //
     // Contrat :
