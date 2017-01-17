@@ -25,9 +25,15 @@
 struct  HitsParRessource{
 	unsigned int nbHits;
 	string localisationDeLaRessource;
-	 HitsParRessource(unsigned nombreHits=0,string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
-	 {
-	 }
+	
+	HitsParRessource(unsigned nombreHits=0,string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
+	{
+	}
+	 
+	string ToString() const
+	{
+		return localisationDeLaRessource + " (" + to_string(nbHits) + " hits)"; 
+	} 
 };
 
 struct pageHitsComparator
