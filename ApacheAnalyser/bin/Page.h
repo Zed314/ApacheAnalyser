@@ -20,7 +20,7 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
+typedef map <string,unsigned int > RefHits;
 //------------------------------------------------------------------------
 // Rôle de la classe <Page>
 //
@@ -49,19 +49,22 @@ public:
     // Contrat :
     //
 	
-	map <string,unsigned int >::const_iterator ObtenirUnIterateurDeDebut() const;
+	RefHits::const_iterator ObtenirUnIterateurDeDebut() const;
 	 // Mode d'emploi : Retourne un const_iterator pointant sur le début de la
 	 // liste des URL référençant la page
     // Contrat :
     //
 	
-	map <string,unsigned int >::const_iterator ObtenirUnIterateurDeFin() const;
+	RefHits::const_iterator ObtenirUnIterateurDeFin() const;
 	 // Mode d'emploi : Retourne un const_iterator pointant sur la fin de la
 	 // liste des URL référençant la page
     // Contrat :
     //
+    
+ 
+    
 //------------------------------------------------- Surcharge d'opérateurs
-  /*  Page & operator = ( const Page & unPage );*/
+    Page & operator = ( const Page & unePage );
     // Mode d'emploi :
     //
     // Contrat :
@@ -94,7 +97,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
-map <string, unsigned int> pagesReferentes;
+RefHits pagesReferentes;
 
 unsigned int nbHitsTotal;
 

@@ -58,11 +58,7 @@ bool RequeteDAO::EstLisible() const
 } //----- Fin de EstLisible
 
 //------------------------------------------------- Surcharge d'opérateurs
-RequeteDAO & RequeteDAO::operator = ( const RequeteDAO & unRequeteDAO )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
+
 
 
 //-------------------------------------------- Constructeurs - destructeur

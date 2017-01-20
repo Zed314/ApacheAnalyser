@@ -16,7 +16,7 @@ using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include <fstream>
-//#include "EnsemblePages.h"
+#include "EnsemblePages.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -46,7 +46,6 @@ public:
     
     bool ExporterUnGraphe( const EnsemblePages & ensembleARendre);
     
-    
     bool ExisteEtNonProtegeEnLecture() const;
     // Mode d'emploi : Permet de savoir s'il existe un fichier portant
     // le nom "nomFichierSortie". On ne fait pas la différence entre un
@@ -57,7 +56,7 @@ public:
     // le nom "nomFichierSortie" et si il est vide.
     //Si le fichier n'existe pas ou qu'il est protégé en lecture, il est considéré
     //comme vide.
-    bool EcriturePossible()const;
+    bool EcriturePossible() const;
      // Mode d'emploi : Permet de savoir si on peut écrire dans le fichier, c'est
      // à dire si il n'est pas protégé en écriture
 //------------------------------------------------- Surcharge d'opérateurs

@@ -63,7 +63,7 @@ string Requete::ObtenirReferent()const
 	{
 		referenceurARetourner=referenceur.substr(adresseRacine.size(),adresseRacine.size());
 	}
-	else if(referenceur!="-")
+	else if(referenceur.find("://")!=referenceur.npos)//referenceur!="-")
 	{
 		referenceurARetourner=referenceur.substr(referenceur.find("://")+3,referenceur.size()-referenceur.find("://")-3);
 		referenceurARetourner=referenceurARetourner.substr(0,referenceurARetourner.find("/"));
@@ -77,21 +77,33 @@ string Requete::ObtenirReferent()const
 	return referenceurARetourner;
 }//----- Fin de ObtenirReferent
 //------------------------------------------------- Surcharge d'opérateurs
-Requete & Requete::operator = ( const Requete & unRequete )
+Requete & Requete::operator = ( const Requete & uneRequete )
 // Algorithme :
 //
 {
+   this->ressource=uneRequete.ressource;
+	this->referenceur=uneRequete.referenceur;
+	this->ip=uneRequete.ip;
+	this->dateEtHeure=uneRequete.dateEtHeure;
+	this->typeDeRequete=uneRequete.typeDeRequete;
+	this->codeHTTP=uneRequete.codeHTTP;
+	this->navigateur=uneRequete.navigateur;
+	this->extensionRessource=uneRequete.extensionRessource;
+	
+	return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Requete::Requete ( const Requete & unRequete )
+Requete::Requete ( const Requete & uneRequete )
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Requete>" << endl;
 #endif
+	(*this)=uneRequete;
+
 } //----- Fin de Requete (constructeur de copie)
 
 

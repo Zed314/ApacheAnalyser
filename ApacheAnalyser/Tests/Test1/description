@@ -1,1 +1,2 @@
-Ce test permet de vérifier la production d'un fichier en sortie du programme testé
+Ce test permet de vérifier le comportement du programme si on ne spécifie pas de nom de fichier dans la commande.
+

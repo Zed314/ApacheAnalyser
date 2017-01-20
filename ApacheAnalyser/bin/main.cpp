@@ -87,7 +87,7 @@ void testRequeteDAO()
 }
 void testEnsemblePagesDAO()
 {
-	EnsemblePagesDAO a("fichierProtEcriture");
+/*	EnsemblePagesDAO a("fichierProtEcriture");
 	cout<<a.EstVide();
 	cout<<a.ExisteEtNonProtegeEnLecture();
 	cout<<a.EcriturePossible();
@@ -102,13 +102,62 @@ void testEnsemblePagesDAO()
 	EnsemblePagesDAO d("fichierNonVide");
 	cout<<d.EstVide();
 	cout<<d.ExisteEtNonProtegeEnLecture();
-	cout<<d.EcriturePossible();
+	cout<<d.EcriturePossible();*/
+	string texteDeTest="192.168.0.0 - - [08/Sep/2012:11:16:06 +0200] \"GET /temps/4IF18.html HTTP/1.1\" 200 5192 \"http://intranet-if.insa-lyon.fr/temps/4IF17.html\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1\"";
+	Requete requeteDeTest(texteDeTest);
+	EnsemblePages ens;
+	cout<<"Ajout requete"<<endl;
+	ens.AjouterRequete(requeteDeTest);
+	EnsemblePagesDAO a("fichierExport");
+	a.ExporterUnGraphe(ens);
+	
+}
+void testAll()
+{
+	//RequeteDAO req("../anonyme.log");
+	RequeteDAO req("b");
+	EnsemblePages ens;
+	req.ExtraireLesDonnees(ens);
+		EnsemblePagesDAO a("fichierExport");
+	a.ExporterUnGraphe(ens);
 }
 bool peutEtreConvertie(const string &stringAVerifier)
 {
 	
 
 		return((stringAVerifier[0]>='0'&&stringAVerifier[0]<='9')||(stringAVerifier[0]=='-'&&(stringAVerifier[1]>='0'&&stringAVerifier[1]<='9')));
+	
+}
+void affichageRestrictionsHoraires(int hdebut,int hfin, bool restrictionsHoraires)
+{
+	if(restrictionsHoraires)
+	{
+		if(hdebut<0)
+		{
+			hdebut=0;
+		}
+		else if(hdebut>=24)
+		{
+			hdebut=23;
+		}
+		if(hfin>=24)
+		{
+			hfin=23;
+		}
+		else if(hfin<0)
+		{
+			hfin=0;
+		}
+	
+		if(hfin<hdebut)
+		{
+			int heureTemp=hfin;
+			hfin=hdebut;
+			hdebut=heureTemp;
+		
+		}
+		cout<<"Attention! Seuls les hits entre "<<hdebut<<"h et "<<hfin+1<<"h (exclu) ont été pris en compte"<<endl;
+	}
 	
 }
 int main(int argc, char** argv)
@@ -120,6 +169,8 @@ int main(int argc, char** argv)
 	bool restrictionExtensions=false;
 	bool restrictionHoraires=false;
 	int heureDebut=0;
+	int heureFin=24;
+	bool uneErreurEstArrivee=false;
 	string nomFichierSortie;
 	string nomFichierEntree;
 	string * parametres = new string[argc];
@@ -129,11 +180,12 @@ int main(int argc, char** argv)
 		cout<<parametres[i]<<endl;
 	}
 
-	for(i=1;i<argc-1;i++)
+	for(i=1;i<argc-1&&uneErreurEstArrivee==false;i++)
 		{
 			if(parametres[i]=="-e")
 			{
 				restrictionExtensions=true;
+				
 			}
 			else if(parametres[i]=="-t")
 			{
@@ -142,19 +194,22 @@ int main(int argc, char** argv)
 					if(peutEtreConvertie(parametres[i+1]))
 					{
 						heureDebut=stoi( parametres[i+1]);
+						heureFin=heureDebut;
 						restrictionHoraires=true;
 						i++;
 					}
 					else
 					{
-						cout<<"Erreur dans la lecture du paramétre t"<<endl;
+						cerr<<"Erreur dans la lecture du paramétre t"<<endl;
+						uneErreurEstArrivee=true;
 					}
 
 					
 				}
 				else
 				{
-					cout<<"Erreur, veuillez indiquer le temps"<<endl;
+					cerr<<"Erreur, veuillez indiquer le temps"<<endl;
+					uneErreurEstArrivee=true;
 				}
 			}
 			else if(parametres[i]=="-g")
@@ -166,35 +221,97 @@ int main(int argc, char** argv)
 				}	
 				else
 				{
-						cout<<"Erreur dans la lecture du paramétre g"<<endl;
+						cerr<<"Erreur dans la lecture du paramétre g"<<endl;
+						uneErreurEstArrivee=true;
 				}		
 			}
 			else
 			{
-				cout<<"Erreur dans la lecture des parametres, parametre\""<<parametres[i]<<"\"inconnu"<<endl;
+				cerr<<"Erreur dans la lecture des parametres, parametre\""<<parametres[i]<<"\"inconnu"<<endl;
+				uneErreurEstArrivee=true;
 			}
 			
 		}
 		if(argc==1)
 		{
-			cout<<"Erreur: Fichier d'entrée manquant"<<endl;
+			cerr<<"Erreur: Fichier d'entrée manquant"<<endl;
+			uneErreurEstArrivee=true;
 			nomFichierEntree="";
 		}
 		else
 		{
 			nomFichierEntree=parametres[i];
 		}
-		cout<<"RestExt="<<restrictionExtensions<<endl;
+		
+	/*	cout<<"RestExt="<<restrictionExtensions<<endl;
 		cout<<"ResH="<<restrictionHoraires<<endl;
 		cout<<"HDebut="<<heureDebut<<endl;
 		cout<<"nFs="<<nomFichierSortie<<endl;
-		cout<<"nFe="<<nomFichierEntree<<endl;
-	delete[] parametres;
+		cout<<"nFe="<<nomFichierEntree<<endl;*/
+		
+		if(uneErreurEstArrivee)
+		{
+			cerr<<"Regardez le manuel pour plus apprendre à utiliser la commande."<<endl;
+			
+			
+		}
+		else
+		{
+			
+			EnsemblePages ensPages( heureDebut,heureFin, restrictionExtensions);
+			RequeteDAO reqDAO(nomFichierEntree);
+			if(!reqDAO.EstLisible())
+			{
+				cerr<<"Le fichier "+nomFichierEntree+" est illisible."<<endl;
+			}
+			else
+			{
+				if(nomFichierSortie!="")
+				{
+					EnsemblePagesDAO ensPagesDAO(nomFichierSortie);
+					if(ensPagesDAO.EcriturePossible()&&ensPagesDAO.EstVide())
+					{
+						reqDAO.ExtraireLesDonnees(ensPages);
+						affichageRestrictionsHoraires(heureDebut,heureFin,restrictionHoraires);
+						cout<<HitsParRessourceSetToString(ensPages.ObtenirLesNPremiers(10));
+						ensPagesDAO.ExporterUnGraphe(ensPages);
+						cout<<"Fichier graphe généré"<<endl;
+					}
+					else if(!ensPagesDAO.EstVide())
+					{
+				
+						cerr<<"On ne peut pas écrire dans ce fichier, il est non vide."<<endl;
+						
+					}
+					else
+					{
+						cerr<<"Impossible d'écrire dans ce fichier!"<<endl;
+					}
+	
+				}
+				else
+				{
+					reqDAO.ExtraireLesDonnees(ensPages);
+					affichageRestrictionsHoraires(heureDebut,heureFin,restrictionHoraires);
+					cout<<HitsParRessourceSetToString(ensPages.ObtenirLesNPremiers(10));
+				}
+			}
+			
+			
+			
+			
+		}
+		
 	
 	//testPage();
 	//testRequete();
-	testRequeteDAO();
+	//testRequeteDAO(); 
+	//testEnsemblePagesDAO();
 	//testEnsemblePages();
+	//testAll();
+	
+	delete[] parametres;
+	
 	return 0;
 }
 

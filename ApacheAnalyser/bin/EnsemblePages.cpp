@@ -38,16 +38,29 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-const set <HitsParRessource,pageHitsComparator> EnsemblePages::ObtenirLesNPremiers(int n) const
+TMapNomPage::const_iterator EnsemblePages::ObtenirIterateurSur(const string & nomDeLaPage) const	
+{
+	return pages.find(nomDeLaPage);
+}
+TMapNomPage::const_iterator EnsemblePages::ObtenirDebutPages() const
+{
+	return pages.begin();
+}
+
+TMapNomPage::const_iterator EnsemblePages::ObtenirFinPages() const
+{
+	return pages.end();
+}
+const TSetPagesHits EnsemblePages::ObtenirLesNPremiers(int n) const
 {
 	int i;
-	set <HitsParRessource,pageHitsComparator>::const_iterator itDernierElementChoisi=pageHits.cbegin();
+	TSetPagesHits::const_iterator itDernierElementChoisi=pageHits.cbegin();
 	for(i=0;i<n&&itDernierElementChoisi!=pageHits.cend();i++)
 	{
 		itDernierElementChoisi++;
 	}
 	
-	const set <HitsParRessource,pageHitsComparator> classement (pageHits.cbegin(),itDernierElementChoisi);
+	const TSetPagesHits classement (pageHits.cbegin(),itDernierElementChoisi);
 	return classement;
 	
 }//----- Fin de ObtenirLesNPremiers
@@ -66,7 +79,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			string referenceur=r.ObtenirReferent();
 			unsigned int nbHitsDocument;
 			
-			map <string,Page>::iterator iterateurPages=pages.find(URIDeLaRequete);
+			TMapNomPage::iterator iterateurPages=pages.find(URIDeLaRequete);
 
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
 			{
@@ -82,7 +95,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			{
 			//	cout<<"Ajout d'un nouveau référenceur pour la page "<<r.ObtenirURI()<<endl;
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
-				cout<<nbHitsDocument<<endl;
+				//cout<<nbHitsDocument<<endl;
 				//Si le document a déjà été indexé dans pageHits.
 				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
 				//Cela arrive si le document a auparavant uniquement étémentionné comme étant un référenceur.
@@ -100,7 +113,8 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
 			{
 			//Page pageAAjouter;
-				pages[referenceur]=pageAAjouter;
+				Page pageDuReferant;
+				pages[referenceur]=pageDuReferant;
 				nbDocumentsAjoutes++;
 			}
 			
@@ -136,7 +150,7 @@ EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExt
 {
 	#ifdef MAP
     cout << "Appel au constructeur de <EnsemblePages>" << endl;
-#endif
+	#endif
 	if(heureDebut<0)
 	{
 		heureDebut=0;
@@ -162,8 +176,10 @@ EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExt
 		
 	}
 
+
 	hDebut=heureDebut;
 	hFin=heureFin;
+
 
 } //----- Fin de EnsemblePages
 

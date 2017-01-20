@@ -20,6 +20,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "EnsemblePagesDAO.h"
+#include "EnsemblePages.h"
 #include <string>
 //#include "EnsemblePages.h"
 //------------------------------------------------------------- Constantes
@@ -36,8 +37,40 @@ using namespace std;
 
 bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 {
-	return false;
-}
+	fichierSortie<<"digraph {"<<endl;
+	//TMapNomPage::const_iterator ObtenirDebutPages() const;
+	TMapNomPage::const_iterator iterateurPages;
+	map <string, unsigned int>::const_iterator iterateurRef;
+	unsigned int i =0;
+	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
+	{
+		
+		fichierSortie<<"node"<<to_string(i)<<" [label=\""<<iterateurPages->first<<"\"];"<<endl;
+	i++;
+	}
+	i =0;
+	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
+	{
+	
+		for(iterateurRef= iterateurPages->second.ObtenirUnIterateurDeDebut();iterateurRef!=iterateurPages->second.ObtenirUnIterateurDeFin();iterateurRef++)
+		{
+		
+			cout<<iterateurRef->first<<endl;
+			cout<<iterateurRef->second<<endl;
+			fichierSortie<<"node"+to_string(distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first)))
+			+"-> node"+to_string(i)
+			<<"[label=\""+to_string(iterateurRef->second)+
+			"\"];"<<endl;
+		}
+		i++;
+		//fichierSortie<<"node"+to_string(distance(iterateurPages..begin,pages.find()))
+		//fichierSortie<<"node"<<to_string(i)<<" [label=\""<<iterateurPages.first<<"\"];"<<endl;
+	}//distance
+	
+	fichierSortie<<"}"<<endl;
+	
+	return true;
+}//----- Fin de ExporterUnGraphe
 
 
 

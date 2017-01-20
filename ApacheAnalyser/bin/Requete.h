@@ -74,7 +74,7 @@ public:
     //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Requete & operator = ( const Requete & unRequete );
+    Requete & operator = ( const Requete & uneRequete );
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,7 +82,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Requete ( const Requete & unRequete );
+    Requete ( const Requete & uneRequete );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

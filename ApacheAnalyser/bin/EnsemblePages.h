@@ -22,6 +22,9 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+
+
+
 struct  HitsParRessource{
 	unsigned int nbHits;
 	string localisationDeLaRessource;
@@ -51,6 +54,11 @@ struct pageHitsComparator
   }
   
 };
+typedef set <HitsParRessource,pageHitsComparator> TSetPagesHits;
+
+typedef map <string, Page> TMapNomPage;
+
+
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>
 //	La classe EnsemblePages est chargée du stockage en mémoire d'informations 
@@ -71,8 +79,13 @@ public:
     //
     // Contrat :
     //
+	TMapNomPage::const_iterator ObtenirIterateurSur(const string & nomDeLaPage) const;	
 	
-	const set <HitsParRessource,pageHitsComparator> ObtenirLesNPremiers (int n = 10) const;
+	TMapNomPage::const_iterator ObtenirDebutPages() const;
+	
+	TMapNomPage::const_iterator ObtenirFinPages() const;
+	
+	const TSetPagesHits ObtenirLesNPremiers (int n = 10) const;
 	// Mode d'emploi : 
 	//	renvoie les N premieres paires de nombres de hits total et pages tries par ordre decroissant de nombre de hits
 	// Contrat :
@@ -126,6 +139,7 @@ protected:
 private:
 //------------------------------------------------------- Méthodes privées
 
+
 protected:
 //----------------------------------------------------- Attributs protégés
 
@@ -136,11 +150,14 @@ private:
 	unsigned int hFin;
 	bool extensionsImgJsCssAutorisees;
 
-	set <HitsParRessource,pageHitsComparator> pageHits;
-	map <string, Page> pages;
+	TSetPagesHits pageHits;
+	TMapNomPage pages;
+	
+	
+
 //---------------------------------------------------------- Classes amies
 
-friend class EnsemblePagesTDAO;
+//friend class EnsemblePagesDAO;
 
 //-------------------------------------------------------- Classes privées
 

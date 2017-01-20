@@ -32,12 +32,12 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeDebut() const
+RefHits::const_iterator Page::ObtenirUnIterateurDeDebut() const
 {
 	return pagesReferentes.cbegin();
 }//----- Fin de ObtenirUnIterateurDeDebut
 
-map < string,unsigned int >::const_iterator Page::ObtenirUnIterateurDeFin() const
+RefHits::const_iterator Page::ObtenirUnIterateurDeFin() const
 {
 	return pagesReferentes.cend();
 }//----- Fin de ObtenirUnIterateurDeFin
@@ -62,12 +62,15 @@ unsigned int Page::AjouterUnReferenceur(const string & urlDuReferenceur)
 }//----- Fin de AjouterUnReferenceur
 
 //------------------------------------------------- Surcharge d'opérateurs
-/*Page & Page::operator = ( const Page & unPage )
+Page & Page::operator = ( const Page & unePage )
 // Algorithme :
 //
 {
-	
-} //----- Fin de operator =*/
+	this->pagesReferentes=unePage.pagesReferentes;
+
+	this->nbHitsTotal=unePage.nbHitsTotal;
+	return *this;
+} //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
