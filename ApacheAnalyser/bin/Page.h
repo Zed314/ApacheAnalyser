@@ -16,11 +16,12 @@ using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 #include <iterator>
 #include <map>
+#include <unordered_map>
 #include <string>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef map <string,unsigned int > RefHits;
+typedef unordered_map <string,unsigned int > RefHits;
 //------------------------------------------------------------------------
 // Rôle de la classe <Page>
 //
@@ -72,7 +73,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Page ( const Page & unPage );
+    Page ( const Page & unePage );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

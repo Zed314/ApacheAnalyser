@@ -126,11 +126,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 }//----- Fin de AjouterRequete
 
 //------------------------------------------------- Surcharge d'opérateurs
-EnsemblePages & EnsemblePages::operator = ( const EnsemblePages & unEnsemblePages )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
+
 
 
 //-------------------------------------------- Constructeurs - destructeur

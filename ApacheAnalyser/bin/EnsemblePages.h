@@ -16,6 +16,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
+#include <unordered_map>
 #include <set>
 #include "Page.h"
 #include "Requete.h"
@@ -56,7 +57,7 @@ struct pageHitsComparator
 };
 typedef set <HitsParRessource,pageHitsComparator> TSetPagesHits;
 
-typedef map <string, Page> TMapNomPage;
+typedef unordered_map <string, Page> TMapNomPage;
 
 
 //------------------------------------------------------------------------

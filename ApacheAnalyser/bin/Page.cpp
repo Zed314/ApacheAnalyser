@@ -74,13 +74,16 @@ Page & Page::operator = ( const Page & unePage )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Page::Page ( const Page & unPage )
+Page::Page ( const Page & unePage )
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Page>" << endl;
 #endif
+(*this)=unePage;
+
+
 } //----- Fin de Page (constructeur de copie)
 
 

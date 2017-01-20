@@ -64,7 +64,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    RequeteDAO ( const RequeteDAO & unRequeteDAO );
+    RequeteDAO ( const RequeteDAO & uneRequeteDAO );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

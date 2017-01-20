@@ -40,7 +40,7 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 	fichierSortie<<"digraph {"<<endl;
 	//TMapNomPage::const_iterator ObtenirDebutPages() const;
 	TMapNomPage::const_iterator iterateurPages;
-	map <string, unsigned int>::const_iterator iterateurRef;
+	 RefHits::const_iterator iterateurRef;
 	unsigned int i =0;
 	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
 	{
@@ -55,8 +55,6 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 		for(iterateurRef= iterateurPages->second.ObtenirUnIterateurDeDebut();iterateurRef!=iterateurPages->second.ObtenirUnIterateurDeFin();iterateurRef++)
 		{
 		
-			cout<<iterateurRef->first<<endl;
-			cout<<iterateurRef->second<<endl;
 			fichierSortie<<"node"+to_string(distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first)))
 			+"-> node"+to_string(i)
 			<<"[label=\""+to_string(iterateurRef->second)+
@@ -113,22 +111,11 @@ bool EnsemblePagesDAO::EcriturePossible() const
 	return false;
 }
 //------------------------------------------------- Surcharge d'opérateurs
-EnsemblePagesDAO & EnsemblePagesDAO::operator = ( const EnsemblePagesDAO & unEnsemblePagesDAO )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
+
 
 
 //-------------------------------------------- Constructeurs - destructeur
-EnsemblePagesDAO::EnsemblePagesDAO ( const EnsemblePagesDAO & unEnsemblePagesDAO )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <EnsemblePagesDAO>" << endl;
-#endif
-} //----- Fin de EnsemblePagesDAO (constructeur de copie)
+
 
 
 EnsemblePagesDAO::EnsemblePagesDAO (string nomFichier):nomFichierSortie(nomFichier)

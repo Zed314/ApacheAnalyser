@@ -1,8 +1,8 @@
 OBJ= main.o Page.o EnsemblePages.o EnsemblePagesDAO.o RequeteDAO.o Requete.o
 COMP= g++
-#COMPFLAG = -Wall -std=c++11 
+COMPFLAG = -Wall -std=c++11 
 
-COMPFLAG = -Wall -std=c++11 -DMAP
+#COMPFLAG = -Wall -std=c++11 -DMAP
 analog : $(OBJ)
 	$(COMP) $(COMPFLAG) -o analog $(OBJ)
 	

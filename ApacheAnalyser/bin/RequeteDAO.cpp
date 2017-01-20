@@ -62,14 +62,7 @@ bool RequeteDAO::EstLisible() const
 
 
 //-------------------------------------------- Constructeurs - destructeur
-RequeteDAO::RequeteDAO ( const RequeteDAO & unRequeteDAO )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <RequeteDAO>" << endl;
-#endif
-} //----- Fin de RequeteDAO (constructeur de copie)
+
 
 
 RequeteDAO::RequeteDAO (string nomDuFichier)
