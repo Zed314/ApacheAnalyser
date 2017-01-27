@@ -65,7 +65,7 @@ string Requete::ObtenirReferent()const
 		referenceurARetourner = referenceur.substr(adresseRacine.size());
 	}
 	//else if(referenceur.find("://") != referenceur.npos)
-	else if(deuxPointsSlashSlash = referenceur.find("://") != referenceur.npos)
+	else if((deuxPointsSlashSlash = referenceur.find("://")) != referenceur.npos)
 	{
 		//cout << deuxPointsSlashSlash << endl;
 		referenceurARetourner = referenceur.substr(deuxPointsSlashSlash + 3);

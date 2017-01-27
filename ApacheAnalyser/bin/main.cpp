@@ -156,7 +156,7 @@ void affichageRestrictionsHoraires(int hdebut,int hfin, bool restrictionsHoraire
 			hdebut=heureTemp;
 		
 		}
-		cout<<"Attention! Seuls les hits entre "<<hdebut<<"h et "<<hfin+1<<"h (exclu) ont été pris en compte"<<endl;
+		cout<<"Attention! Seules les requêtes entre "<<hdebut<<"h et "<<hfin+1<<"h ont été prises en compte."<<endl;
 	}
 	
 }
@@ -200,7 +200,7 @@ int main(int argc, char** argv)
 					}
 					else
 					{
-						cerr<<"Erreur dans la lecture du paramétre t"<<endl;
+						cerr<<"Erreur dans la lecture du paramétre t."<<endl;
 						uneErreurEstArrivee=true;
 					}
 
@@ -208,7 +208,7 @@ int main(int argc, char** argv)
 				}
 				else
 				{
-					cerr<<"Erreur, veuillez indiquer le temps"<<endl;
+					cerr<<"Erreur, veuillez indiquer le temps."<<endl;
 					uneErreurEstArrivee=true;
 				}
 			}
@@ -221,13 +221,13 @@ int main(int argc, char** argv)
 				}	
 				else
 				{
-						cerr<<"Erreur dans la lecture du paramétre g"<<endl;
+						cerr<<"Erreur dans la lecture du paramétre g."<<endl;
 						uneErreurEstArrivee=true;
 				}		
 			}
 			else
 			{
-				cerr<<"Erreur dans la lecture des parametres, parametre\""<<parametres[i]<<"\"inconnu"<<endl;
+				cerr<<"Erreur dans la lecture des paramétres, paramétre \""<<parametres[i]<<"\" inconnu."<<endl;
 				uneErreurEstArrivee=true;
 			}
 			

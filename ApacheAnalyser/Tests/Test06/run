@@ -1,2 +1,1 @@
-../../bin/analog  ../../Tests/Test05/fichierLectureSeule
-
+../../bin/analog  -unParametreInconnu ../../Tests/Test06/fichierLog
