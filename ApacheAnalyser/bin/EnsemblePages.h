@@ -57,8 +57,8 @@ struct pageHitsComparator
 };
 typedef set <HitsParRessource,pageHitsComparator> TSetPagesHits;
 
-typedef unordered_map <string, Page> TMapNomPage;
-
+//typedef unordered_map <string, Page> TMapNomPage;
+typedef map <string, Page> TMapNomPage;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>

@@ -21,7 +21,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef unordered_map <string,unsigned int > RefHits;
+//typedef unordered_map <string,unsigned int > RefHits;
+typedef map <string,unsigned int > RefHits;
 //------------------------------------------------------------------------
 // Rôle de la classe <Page>
 //
