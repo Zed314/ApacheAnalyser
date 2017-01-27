@@ -1,0 +1,2 @@
+On teste si le programme ne fait effectivement pas la différenciation entre les pages avec et sans paramétres.
+Exemple : test.php et test.php?a=1 doivent être considérés comme étant la même page.
