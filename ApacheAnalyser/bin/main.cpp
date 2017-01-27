@@ -162,7 +162,7 @@ void affichageRestrictionsHoraires(int hdebut,int hfin, bool restrictionsHoraire
 }
 int main(int argc, char** argv)
 {
-
+	//testRequete();
 		//cout<<"Erreur, merci de renseigner un fichier de log"<<endl;
 	
 	int i=0;
@@ -243,11 +243,11 @@ int main(int argc, char** argv)
 			nomFichierEntree=parametres[i];
 		}
 		
-	/*	cout<<"RestExt="<<restrictionExtensions<<endl;
+		cout<<"RestExt="<<restrictionExtensions<<endl;
 		cout<<"ResH="<<restrictionHoraires<<endl;
 		cout<<"HDebut="<<heureDebut<<endl;
 		cout<<"nFs="<<nomFichierSortie<<endl;
-		cout<<"nFe="<<nomFichierEntree<<endl;*/
+		cout<<"nFe="<<nomFichierEntree<<endl;
 		
 		if(uneErreurEstArrivee)
 		{

@@ -74,11 +74,6 @@ public:
     //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Requete & operator = ( const Requete & uneRequete );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -107,13 +102,17 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+    string logname;
+    string username;
+    string gmt;
 	string ressource;
 	string referenceur;
 	string ip;
 	string dateEtHeure;
 	string typeDeRequete;
+    string protocol;
 	unsigned int codeHTTP;
+    unsigned int dataSize;
 	string navigateur;
 	string extensionRessource;
 	
