@@ -59,39 +59,30 @@ string Requete::ObtenirURI()const
 string Requete::ObtenirReferent()const
 {
 	string referenceurARetourner;
-	if(referenceur.substr(0,adresseRacine.size())==adresseRacine)
+	unsigned int deuxPointsSlashSlash;
+	if(referenceur.substr(0, adresseRacine.size()) == adresseRacine)
 	{
-		referenceurARetourner=referenceur.substr(adresseRacine.size(),adresseRacine.size());
+		referenceurARetourner = referenceur.substr(adresseRacine.size());
 	}
-	else if(referenceur.find("://")!=referenceur.npos)//referenceur!="-")
+	//else if(referenceur.find("://") != referenceur.npos)
+	else if(deuxPointsSlashSlash = referenceur.find("://") != referenceur.npos)
 	{
-		referenceurARetourner=referenceur.substr(referenceur.find("://")+3,referenceur.size()-referenceur.find("://")-3);
-		referenceurARetourner=referenceurARetourner.substr(0,referenceurARetourner.find("/"));
+		//cout << deuxPointsSlashSlash << endl;
+		referenceurARetourner = referenceur.substr(deuxPointsSlashSlash + 3);
+		//referenceurARetourner = referenceur.substr(referenceur.find("://") + 3);
+		referenceurARetourner = referenceurARetourner.substr(0,referenceurARetourner.find("/"));
 		
 	}
 	else
 	{
-		referenceurARetourner=referenceur;
+		referenceurARetourner = referenceur;
 	}
 	
 	return referenceurARetourner;
 }//----- Fin de ObtenirReferent
+
 //------------------------------------------------- Surcharge d'opérateurs
-Requete & Requete::operator = ( const Requete & uneRequete )
-// Algorithme :
-//
-{
-   this->ressource=uneRequete.ressource;
-	this->referenceur=uneRequete.referenceur;
-	this->ip=uneRequete.ip;
-	this->dateEtHeure=uneRequete.dateEtHeure;
-	this->typeDeRequete=uneRequete.typeDeRequete;
-	this->codeHTTP=uneRequete.codeHTTP;
-	this->navigateur=uneRequete.navigateur;
-	this->extensionRessource=uneRequete.extensionRessource;
-	
-	return *this;
-} //----- Fin de operator =
+
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -114,43 +105,127 @@ Requete::Requete (string ligneDeLog)
 #ifdef MAP
     cout << "Appel au constructeur de <Requete>" << endl;
 #endif
+    //cout << ligneDeLog << endl;
 	string aDecouper;
 	istringstream iss( ligneDeLog );
-	getline(iss,aDecouper,'"');
-	
-	ip = aDecouper.substr(0, aDecouper.find(" - - "));
-	dateEtHeure=aDecouper.substr(aDecouper.find("[")+1, aDecouper.find("]")-aDecouper.find("[")-1);
+	getline(iss, ip, ' ');
+	//cout << ip << endl;
 
-	getline(iss,aDecouper,'"');
-	typeDeRequete=aDecouper.substr(0, aDecouper.find(" "));
-	ressource=aDecouper.substr(aDecouper.find(" ")+1,aDecouper.find(" ",aDecouper.find(" ")+1)-aDecouper.find(" ")-1);
-	
+	getline(iss, logname, ' ');
+	//cout << logname << endl;
+
+	getline(iss, username, ' ');
+	//cout << username << endl;
+
+	getline(iss, dateEtHeure, ' ');
+	dateEtHeure.erase(0,1);
+	//cout << dateEtHeure << endl;
+
+	getline(iss, gmt, ' ');
+	gmt.pop_back();
+	//cout << gmt << endl;
+
+	getline(iss, typeDeRequete, ' ');
+	typeDeRequete.erase(0,1);
+	//cout << typeDeRequete << endl;
+
+	getline(iss, ressource, ' ');
+	//cout << ressource << endl;
 	// enlever les parametres de la ressources s'ils y sont (apres '?')
 	unsigned int interMark = ressource.find('?');
-	if (interMark < ressource.length())
+	unsigned int resLength = ressource.length();
+	if (interMark < resLength)
 	{
 		ressource = ressource.substr(0, interMark);
+		resLength = interMark + 1;
 	}
+	//cout << ressource << endl;
 
-	extensionRessource = ressource.substr(ressource.find(".") + 1, ressource.length() - ressource.find(".") - 1);
-	int i;
-	for(i=0;extensionRessource[i]!='\0';i++)
+	unsigned int pointMark = ressource.find('.');
+	extensionRessource = ressource.substr(pointMark + 1, resLength - pointMark - 1);
+	//cout << extensionRessource << endl;
+	for(unsigned int i = 0; extensionRessource[i] != '\0'; i++)
 	{
-		if(extensionRessource[i]>='a'&&extensionRessource[i]<='z')
+		if(extensionRessource[i] >= 'a' && extensionRessource[i] <= 'z')
 		{
-			extensionRessource[i]=extensionRessource[i]-'a'+'A';
+			extensionRessource[i] = extensionRessource[i] - 'a' + 'A';
 		}
 	}
 
-	getline(iss,aDecouper,'"');
-	codeHTTP=(aDecouper[1]-'0')*100+(aDecouper[2]-'0')*10+aDecouper[3]-'0';
-	getline(iss,aDecouper,'"');
+	getline(iss, protocol, ' ');
+	//cout << protocol << endl;
+	protocol.pop_back();
+	//cout << protocol << endl;
 
-	referenceur=aDecouper;
+	getline(iss, aDecouper, ' ');
+	try 
+	{
+		codeHTTP = stoull(aDecouper);
+		//cout << codeHTTP << endl;
+	} 
+	catch (exception e)
+	{
+		//cerr << "conversion of codeHTTP couldn't be performed: " << aDecouper << endl;
 
-	getline(iss,aDecouper,'"');
-	getline(iss,aDecouper,'"');
-	navigateur=aDecouper;
+	}
+
+	getline(iss, aDecouper, ' ');
+	try 
+	{
+		dataSize = stoull(aDecouper);
+		//cout << dataSize << endl;
+	} 
+	catch (exception e)
+	{
+		//cerr << "conversion of dataSize couldn't be performed: " << aDecouper << endl;
+	}
+	
+
+	getline(iss, referenceur, ' ');
+	referenceur.erase(0,1);
+	referenceur.pop_back();
+	//cout << referenceur << endl;
+
+	getline(iss, navigateur);
+	navigateur.erase(0,1);
+	navigateur.pop_back();
+	//cout << navigateur << endl;
+
+	// getline(iss,aDecouper,'"');
+	
+	// ip = aDecouper.substr(0, aDecouper.find(" - - "));
+	// dateEtHeure=aDecouper.substr(aDecouper.find("[")+1, aDecouper.find("]")-aDecouper.find("[")-1);
+
+	// getline(iss,aDecouper,'"');
+	// typeDeRequete=aDecouper.substr(0, aDecouper.find(" "));
+	// ressource=aDecouper.substr(aDecouper.find(" ")+1,aDecouper.find(" ",aDecouper.find(" ")+1)-aDecouper.find(" ")-1);
+	
+	// // enlever les parametres de la ressources s'ils y sont (apres '?')
+	// unsigned int interMark = ressource.find('?');
+	// if (interMark < ressource.length())
+	// {
+	// 	ressource = ressource.substr(0, interMark);
+	// }
+
+	// extensionRessource = ressource.substr(ressource.find(".") + 1, ressource.length() - ressource.find(".") - 1);
+	// int i;
+	// for(i=0;extensionRessource[i]!='\0';i++)
+	// {
+	// 	if(extensionRessource[i]>='a'&&extensionRessource[i]<='z')
+	// 	{
+	// 		extensionRessource[i]=extensionRessource[i]-'a'+'A';
+	// 	}
+	// }
+
+	// getline(iss,aDecouper,'"');
+	// codeHTTP=(aDecouper[1]-'0')*100+(aDecouper[2]-'0')*10+aDecouper[3]-'0';
+	// getline(iss,aDecouper,'"');
+
+	// referenceur=aDecouper;
+
+	// getline(iss,aDecouper,'"');
+	// getline(iss,aDecouper,'"');
+	// navigateur=aDecouper;
 
 } //----- Fin de Requete
 

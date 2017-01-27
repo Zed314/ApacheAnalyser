@@ -44,13 +44,13 @@ struct pageHitsComparator
 {
   bool operator()(const HitsParRessource & a,const HitsParRessource & b) const
   {
-  		if(a.nbHits==b.nbHits)
+  		if(a.nbHits == b.nbHits)
   		{
-  			return a.localisationDeLaRessource<b.localisationDeLaRessource;
+  			return a.localisationDeLaRessource < b.localisationDeLaRessource;
   		}
     	else
     	{
-    		return a.nbHits>b.nbHits;
+    		return a.nbHits > b.nbHits;
 		}
   }
   
@@ -105,11 +105,6 @@ public:
 	//
 
 //------------------------------------------------- Surcharge d'opérateurs
-    EnsemblePages & operator = ( const EnsemblePages & unEnsemblePages );
-    // Mode d'emploi :
-    //	surcharge l'operator = pour la classe EnsemblePages
-    // Contrat :
-    //
 
 
 //-------------------------------------------- Constructeurs - destructeur
