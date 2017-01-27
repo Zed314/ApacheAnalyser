@@ -1,0 +1,2 @@
+On teste le programme pour vérifier qu'il selectionne bien les informations en fonction de l'heure passée en paramétre.
+Ici, on vérifie si le programme remplace bien l'heure 24 par le créneau 23h-minuit.

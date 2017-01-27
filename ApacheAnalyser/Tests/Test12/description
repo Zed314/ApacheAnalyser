@@ -1,0 +1,2 @@
+On teste le programme pour vérifier qu'il selectionne bien les informations en fonction de l'heure passée en paramétre.
+Ici, par exemple, on vérifie si quand on renseigne une heure négative en paramétre, le programme la remplace par 0.

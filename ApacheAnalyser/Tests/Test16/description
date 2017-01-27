@@ -1,0 +1,2 @@
+On teste le programme pour vérifier qu'il selectionne bien les informations en fonction de l'heure passée en paramétre.
+Ici, on vérifie que si on met 0 en paramétre d'heure, le systeme va bien choisir le créneau minuit-1h du matin.
