@@ -1,25 +1,29 @@
-OBJ= main.o Page.o EnsemblePages.o EnsemblePagesDAO.o RequeteDAO.o Requete.o
-COMP= g++
-COMPFLAG = -Wall -std=c++11 
+# Declaration de variables
+CC = g++
+CC_FLAGS = -Wall -std=c++11
+CC_EXFLAGS = # -DMAP
+VAL_FLAGS = --leak-check=yes
 
-#COMPFLAG = -Wall -std=c++11 -DMAP
-analog : $(OBJ)
-	$(COMP) $(COMPFLAG) -o analog $(OBJ)
+# Noms de fichiers
+EXEC = run
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Cible principale
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(EXEC)
 	
-main.o : main.cpp EnsemblePages.h EnsemblePagesDAO.h RequeteDAO.h Requete.h
-	$(COMP) $(COMPFLAG) -c main.cpp 
-
-Page.o : Page.h Page.cpp
-	$(COMP) $(COMPFLAG) -c Page.cpp
-
-EnsemblePagesDAO.o: Page.h EnsemblePages.h EnsemblePagesDAO.h EnsemblePagesDAO.cpp
-	$(COMP) $(COMPFLAG) -c EnsemblePagesDAO.cpp
-
-EnsemblePages.o : Page.h Requete.h EnsemblePages.h EnsemblePages.cpp
-	$(COMP) $(COMPFLAG) -c EnsemblePages.cpp
-
-RequeteDAO.o : RequeteDAO.h Requete.h EnsemblePages.h RequeteDAO.cpp
-	$(COMP) $(COMPFLAG) -c RequeteDAO.cpp
+# Pour les fichiers objet
+%.o: %.cpp
+	$(CC) -c $(CC_FLAGS) $(CC_EXFLAGS) $< -o $@
 	
-Requete.o : Requete.h Requete.cpp
-	$(COMP) $(COMPFLAG) -c Requete.cpp
+# Pour eviter les conflicts 
+.PHONY: clean valgrind
+	
+# Pour effacer les fichiers generés
+clean:
+	rm -f $(EXEC) $(OBJECTS)
+	
+# Pour valgrind
+valgrind:
+	valgrind $(VAL_FLAGS) ./$(EXEC)
