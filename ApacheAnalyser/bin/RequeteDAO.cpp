@@ -31,6 +31,29 @@ using namespace std;
 //
 //{
 //} //----- Fin de Méthode
+
+bool RequeteDAO::EstVide() const
+{
+	if(!this->EstLisible())
+	{
+		return true;
+	}
+	ifstream fluxEntree(nomFichierSource);
+	fluxEntree.clear();
+	fluxEntree.seekg(0, ios::beg);
+	streampos diff=fluxEntree.tellg();
+	fluxEntree.seekg(0, ios::end);
+	diff=fluxEntree.tellg()-diff;
+   if(diff!=0)
+   {
+   	return false;
+   }
+   return true;
+}//----- Fin de EstVide
+
+
+
+
 int RequeteDAO::ExtraireLesDonnees(EnsemblePages & EnsemblePagesACompleter)
 {
 	if(!this->EstLisible())

@@ -5,7 +5,7 @@ CC_EXFLAGS = # -DMAP
 VAL_FLAGS = --leak-check=yes
 
 # Noms de fichiers
-EXEC = run
+EXEC = analog
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 

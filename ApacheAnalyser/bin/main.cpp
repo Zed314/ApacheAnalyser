@@ -177,7 +177,7 @@ int main(int argc, char** argv)
 	for(i=0;i<argc;i++)
 	{
 		parametres[i]=argv[i];
-		cout<<parametres[i]<<endl;
+	//	cout<<parametres[i]<<endl;
 	}
 
 	for(i=1;i<argc-1&&uneErreurEstArrivee==false;i++)
@@ -234,7 +234,7 @@ int main(int argc, char** argv)
 		}
 		if(argc==1)
 		{
-			cerr<<"Erreur: Fichier d'entrée manquant"<<endl;
+			cerr<<"Erreur : Fichier d'entrée manquant"<<endl;
 			uneErreurEstArrivee=true;
 			nomFichierEntree="";
 		}
@@ -262,7 +262,11 @@ int main(int argc, char** argv)
 			RequeteDAO reqDAO(nomFichierEntree);
 			if(!reqDAO.EstLisible())
 			{
-				cerr<<"Le fichier "+nomFichierEntree+" est illisible."<<endl;
+				cerr<<"Erreur : Le fichier "+nomFichierEntree+" est illisible."<<endl;
+			}
+			else if(reqDAO.EstVide())
+			{
+				cerr<<"Erreur : Le fichier "+nomFichierEntree+" est vide."<<endl;
 			}
 			else
 			{

@@ -53,6 +53,11 @@ public:
     // l'attribut fichierSource est lisible et false sinon.
     // Lisible signifie que le fichier existe et qu'on a 
     // les droits de lecture dessus
+    
+    bool EstVide() const;
+    // Mode d'emploi : Renvoie true si le fichier ayant comme nom 
+    // l'attribut fichierSource est vide et false sinon
+    // Si on n'a pas les droit en lecture, renvoie true
 	
 
 //------------------------------------------------- Surcharge d'opérateurs
