@@ -243,11 +243,7 @@ int main(int argc, char** argv)
 			nomFichierEntree=parametres[i];
 		}
 		
-		cout<<"RestExt="<<restrictionExtensions<<endl;
-		cout<<"ResH="<<restrictionHoraires<<endl;
-		cout<<"HDebut="<<heureDebut<<endl;
-		cout<<"nFs="<<nomFichierSortie<<endl;
-		cout<<"nFe="<<nomFichierEntree<<endl;
+
 		
 		if(uneErreurEstArrivee)
 		{
