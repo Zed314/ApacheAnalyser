@@ -124,8 +124,15 @@ Requete::Requete (string ligneDeLog)
 	getline(iss,aDecouper,'"');
 	typeDeRequete=aDecouper.substr(0, aDecouper.find(" "));
 	ressource=aDecouper.substr(aDecouper.find(" ")+1,aDecouper.find(" ",aDecouper.find(" ")+1)-aDecouper.find(" ")-1);
+	
+	// enlever les parametres de la ressources s'ils y sont (apres '?')
+	unsigned int interMark = ressource.find('?');
+	if (interMark < ressource.length())
+	{
+		ressource = ressource.substr(0, interMark);
+	}
 
-	extensionRessource=ressource.substr(ressource.find(".")+1,ressource.find("?")-ressource.find(".")-1);
+	extensionRessource = ressource.substr(ressource.find(".") + 1, ressource.length() - ressource.find(".") - 1);
 	int i;
 	for(i=0;extensionRessource[i]!='\0';i++)
 	{
