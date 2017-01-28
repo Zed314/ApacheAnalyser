@@ -41,16 +41,17 @@ using namespace std;
 TMapNomPage::const_iterator EnsemblePages::ObtenirIterateurSur(const string & nomDeLaPage) const	
 {
 	return pages.find(nomDeLaPage);
-}
+}//----- Fin de ObtenirIterateurSur()
+
 TMapNomPage::const_iterator EnsemblePages::ObtenirDebutPages() const
 {
 	return pages.begin();
-}
+}//----- Fin de ObtenirDebutPages()
 
 TMapNomPage::const_iterator EnsemblePages::ObtenirFinPages() const
 {
 	return pages.end();
-}
+}//----- Fin de ObtenirFinPages()
 const TSetPagesHits EnsemblePages::ObtenirLesNPremiers(int n) const
 {
 	int i;
@@ -83,8 +84,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 
 			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
 			{
-			//	cout<<"Ajout d'une nouvelle Page référéé : "<<r.ObtenirURI()<<endl;
-				//Page pageAAjouter;
+		
 				nbHitsDocument=pageAAjouter.AjouterUnReferenceur(referenceur);
 				pages[URIDeLaRequete]=pageAAjouter;
 				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
@@ -93,9 +93,9 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			}
 			else
 			{
-			//	cout<<"Ajout d'un nouveau référenceur pour la page "<<r.ObtenirURI()<<endl;
+			
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
-				//cout<<nbHitsDocument<<endl;
+				
 				//Si le document a déjà été indexé dans pageHits.
 				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
 				//Cela arrive si le document a auparavant uniquement étémentionné comme étant un référenceur.
@@ -103,10 +103,10 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 				//Chercher à supprimer l'entrée dans pageHits.
 				if(nbHitsDocument!=1)
 				{			
-				//	cout<<"Suppression de la page pour la réinsérer dans le set"<<endl;
+				
 					pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
-			//	cout<<"Insertion dans le set"<<endl;
+			
 				pageHits.insert(  HitsParRessource(nbHitsDocument,URIDeLaRequete));
 			}
 			iterateurPages=pages.find(referenceur);
