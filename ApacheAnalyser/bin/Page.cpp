@@ -13,11 +13,12 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
 #include <string>
 #include <iterator>
 #include <map>
+using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Page.h"
 
@@ -36,7 +37,7 @@ RefHits::const_iterator Page::ObtenirUnIterateurDeFin() const
 	return pagesReferentes.cend();
 }//----- Fin de ObtenirUnIterateurDeFin
 
-unsigned int Page::AjouterUnReferenceur(const string & urlDuReferenceur)
+unsigned int Page::AjouterUnReferenceur(const std::string & urlDuReferenceur)
 {
 	if(pagesReferentes.count(urlDuReferenceur)==1)
 	{
@@ -64,7 +65,7 @@ Page::Page ( ): nbHitsTotal(0)
 Page::~Page ( )
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Page>" << endl;
+   cout << "Appel au destructeur de <Page>" << endl;
 #endif
 } //----- Fin de ~Page
 

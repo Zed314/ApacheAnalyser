@@ -1,2 +1,2 @@
 On test le programme avec qu'un fichier de log en paramétre.
-Il doit vérifier le fait qu'il considére de la même façon une ressource que elle soit écrite en majuscule ou non.
+On vérifie qu'une ressource puisse bien s'auto-référencer.

@@ -14,21 +14,21 @@ ainsi que la génération d'un graphe au format .dot lisible par l'outil GraphVi
 #include <string>
 #include <iterator>
 
-#include "Page.h"
-#include "Requete.h"
+
+
 #include "RequeteDAO.h"
 #include "EnsemblePagesDAO.h"
 #include "EnsemblePages.h"
 
 using namespace std;
 
-const string MAN = "Check README.md for more details";
+const string MAN = "Regardez le manuel pour plus apprendre à utiliser la commande.";
 
 //Fonction qui transforme un element du set <HitsParRessource,pageHitsComparator> en un string et le renvoie
 string HitsParRessourceSetToString (set <HitsParRessource,pageHitsComparator> hitsSet)
 {
 	string output = "";
-	set <HitsParRessource,pageHitsComparator>::const_iterator it;
+	TSetPagesHits::const_iterator it;
 	for (it = hitsSet.cbegin(); it != hitsSet.cend(); it++)
 	{
 		output += (*it).ToString() + "\r\n";	
@@ -70,21 +70,20 @@ int main(int argc, char** argv)
 					heureDebut = stoi(parametres[i+1]);
 					if (heureDebut < 0 || heureDebut > 24)
 					{
-						cerr << "Erreur dans la lecture du parametre t: time out of bounds" << endl;
+						cerr << "Erreur dans la lecture du parametre t: temps plus grand que 24 ou négatif." << endl;
 						cerr << MAN << endl;
 						return EXIT_FAILURE;
 					}
-					else if (heureDebut == 24)
-					{
-						heureDebut = 0;
-					}
+					
+					heureDebut %= 24;//Pour mettre l'heure à 0 si elle vaut 24.
+					
 					heureFin = heureDebut + 1;
 					restrictionHoraires = true;
 					i++;
 				}
 				catch (exception e)
 				{
-					cerr << "Erreur dans la lecture du parametre t: time not in a valid numeric format" << endl;
+					cerr << "Erreur dans la lecture du paramétre t." << endl;
 					cerr << MAN << endl;
 					return EXIT_FAILURE;
 				}
@@ -92,7 +91,7 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				cerr<<"Erreur dans la lecture du parametre t: no time found"<<endl;
+				cerr<<"Erreur, veuillez indiquer le temps."<<endl;
 				cerr << MAN << endl;
 				return EXIT_FAILURE;
 			}
@@ -106,14 +105,14 @@ int main(int argc, char** argv)
 			}	
 			else
 			{
-					cerr<<"Erreur dans la lecture du paramétre g: no output file name found"<<endl;
+					cerr<<"Erreur dans la lecture du paramétre g."<<endl;
 					cerr << MAN << endl;
 					return EXIT_FAILURE;
 			}		
 		}
 		else
 		{
-			cerr<<"Erreur dans la lecture des parametres: parameter \""<<parametres[i]<<"\" unknown"<<endl;
+			cerr<<"Erreur dans la lecture des paramétres, paramétre \""<<parametres[i]<<"\" inconnu."<<endl;
 			cerr << MAN << endl;
 			return EXIT_FAILURE;
 		}
@@ -124,7 +123,7 @@ int main(int argc, char** argv)
 	// Gerer le nom de fichier log
 	if(argc == 1)
 	{
-		cerr<<"Erreur dans la lecture des arguments: input file missing"<<endl;
+		cerr<<"Erreur : Fichier d'entrée manquant"<<endl;
 		cerr << MAN << endl;
 		return EXIT_FAILURE;
 	}
@@ -136,24 +135,22 @@ int main(int argc, char** argv)
 	
 	EnsemblePages ensPages( heureDebut,heureFin, restrictionExtensions);
 	RequeteDAO reqDAO(nomFichierEntree);
+	
 	if(!reqDAO.EstLisible())
 	{
-		cerr<<"Erreur dans la lecture de fichier entre: the file "+nomFichierEntree+" is not readable"<<endl;
+		cerr<<"Erreur : Le fichier "+nomFichierEntree+" est illisible."<<endl;
 		return EXIT_FAILURE;
 	}
 	else if(reqDAO.EstVide())
 	{
-		cerr<<"Erreur dans la lecture de fichier entre: the file "+nomFichierEntree+" is empty"<<endl;
+		cerr<<"Erreur : Le fichier "+nomFichierEntree+" est vide."<<endl;
 		return EXIT_FAILURE;
 	}
 	else
 	{
-		reqDAO.ExtraireLesDonnees(ensPages);
-		if (restrictionHoraires)
-		{
-			cout << "Attention! Seuls les hits entre " << heureDebut << "h et " << heureFin << "h (exclu) seront prises en compte" << endl;
-		}
-		cout << HitsParRessourceSetToString(ensPages.ObtenirLesNPremiers(10));
+		
+
+		
 		
 		// Verifier si l'option "-g" a ete utilise et generer le fichier .dot dans le cas echeant
 		if(nomFichierSortie != "")  
@@ -161,21 +158,36 @@ int main(int argc, char** argv)
 			EnsemblePagesDAO ensPagesDAO(nomFichierSortie);
 			if(ensPagesDAO.EcriturePossible() && ensPagesDAO.EstVide())
 			{
+				if (restrictionHoraires)
+				{
+					cout<<"Attention! Seules les requêtes entre "<<heureDebut<<"h et "<<heureFin<<"h ont été prises en compte."<<endl;
+				}
+				reqDAO.ExtraireLesDonnees(ensPages);
+				cout << HitsParRessourceSetToString(ensPages.ObtenirLesNPremiers(10));
 				ensPagesDAO.ExporterUnGraphe(ensPages);
 				cout<<"Fichier graphe généré"<<endl;
 			}
 			else if(!ensPagesDAO.EstVide())
 			{
 		
-				cerr<<"Erreur pendant l'ecriture dans le fichier dot: the file " +nomFichierSortie+ " is not empty" << endl;
+				cerr<<"On ne peut pas écrire dans le fichier \""<<nomFichierSortie<<"\", il est non vide."<<endl;
 				return EXIT_FAILURE;
 			}
 			else
 			{
-				cerr<<"Erreur pendant l'ecriture dans le fichier dot: unable to write to file " + nomFichierSortie << endl;
+				cerr<<"Impossible d'écrire dans le fichier \""<<nomFichierSortie<<"\", il est protégé en écriture!"<<endl;
 				return EXIT_FAILURE;
 			}
 
+		}
+		else
+		{
+			if (restrictionHoraires)
+			{
+				cout<<"Attention! Seules les requêtes entre "<<heureDebut<<"h et "<<heureFin<<"h ont été prises en compte."<<endl;
+			}
+			reqDAO.ExtraireLesDonnees(ensPages);
+			cout << HitsParRessourceSetToString(ensPages.ObtenirLesNPremiers(10));
 		}
 	}
 	

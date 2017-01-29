@@ -14,7 +14,7 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
 #include <string>
 #include <map>

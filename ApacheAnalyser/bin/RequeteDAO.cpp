@@ -13,11 +13,11 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
 #include <fstream>
 #include <string>
-
+using namespace std;
 //------------------------------------------------------ Include personnel
 #include "RequeteDAO.h"
 #include "EnsemblePages.h"

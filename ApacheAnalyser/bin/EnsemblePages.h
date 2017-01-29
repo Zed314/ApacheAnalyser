@@ -20,20 +20,21 @@
 #include <set>
 #include "Page.h"
 #include "Requete.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 struct  HitsParRessource{
 	unsigned int nbHits;
-	std::string localisationDeLaRessource;
+	string localisationDeLaRessource;
 	
 	HitsParRessource(unsigned nombreHits=0,std::string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
 	{
 	}
 	 
-	std::string ToString() const
+	string ToString() const
 	{
-		return localisationDeLaRessource + " (" + std::to_string(nbHits) + " hits)"; 
+		return localisationDeLaRessource + " (" + to_string(nbHits) + " hits)"; 
 	} 
 };
 
@@ -54,7 +55,7 @@ struct pageHitsComparator
 };
 
 typedef std::set <HitsParRessource,pageHitsComparator> TSetPagesHits;
-typedef std::map <std::string, Page> TMapNomPage;
+typedef std::unordered_map <std::string, Page> TMapNomPage;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>
@@ -114,9 +115,10 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     EnsemblePages  (unsigned int heureDebut = 0, unsigned int heureFin = 24, bool restrictionsExtensions = false);
     // Mode d'emploi :
-    //  cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
-	  //	et avec ou sans les extensions d'image, css, javascript en dependence de ext
-    // Contrat :
+    // Cree un nouveau ensemble de pages pour de pages avec un heure comprise entre heureDebut et heureFin ([heureDebut;heureFin[) 
+	 // et avec ou sans les requêtes portant sur des ressources avec des extensions d'image, css, javascript
+    // Contrat : heureDebut doit être entre 0 et 23 et heureFin doit être entre 1 et 24 et heureDebut<heureFin
+    //
     //
 
     virtual ~EnsemblePages ( );

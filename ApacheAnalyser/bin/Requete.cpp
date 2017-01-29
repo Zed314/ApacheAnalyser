@@ -18,6 +18,7 @@ using namespace std;
 #include <string>
 #include <sstream>
 #include <algorithm>
+using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Requete.h"
 //------------------------------------------------------------- Constantes
@@ -48,6 +49,15 @@ string Requete::ObtenirReferent() const
 	if(referenceur.substr(0, adresseRacine.size()) == adresseRacine)
 	{
 		referenceurARetourner = referenceur.substr(adresseRacine.size());
+		unsigned int interMark = referenceurARetourner.find('?');
+		unsigned int semicolonMark = referenceurARetourner.find(';');
+		unsigned int min = interMark < semicolonMark ? interMark : semicolonMark;
+		unsigned int refLength = referenceurARetourner.length();
+		if (min < refLength)
+		{
+			referenceurARetourner = referenceurARetourner.substr(0, min);
+			
+		}
 	}
 	// Garde que la racine si elle n'est pas "http://intranet-if.insa-lyon.fr"
 	else if(referenceur.find("://") != referenceur.npos)

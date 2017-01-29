@@ -13,13 +13,17 @@
 #if ! defined ( REQUETE_H )
 #define REQUETE_H
 
-using namespace std;
+
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include <set>
+
+
+using namespace std;
 //------------------------------------------------------------- Constantes
 const std::string adresseRacine = "http://intranet-if.insa-lyon.fr";
-const std::set <string> extensionsImageJsCss = {"ICO", "JPG", "PNG", "BMP","GIF","TIF","CSS","JS", "ICS"};
+const set <string> extensionsImageJsCss = {"ICO", "JPG", 
+"PNG", "BMP","GIF","TIF","CSS","JS", "ICS"};
 
 
 //------------------------------------------------------------------ Types
@@ -67,7 +71,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Requete (std::string ligneDeLog);
+    Requete (string ligneDeLog);
     // Mode d'emploi : 
     //  Permet de construire l'objet Requete 
     //  à partir d'une ligne de log Apache fournie en paramétre
@@ -86,17 +90,17 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    std::string logname;
-    std::string username;
-    std::string gmt;
+   std::string logname;
+   std::string username;
+   std::string gmt;
 	std::string ressource;
 	std::string referenceur;
 	std::string ip;
 	std::string dateEtHeure;
 	std::string typeDeRequete;
-    std::string protocol;
+   std::string protocol;
 	unsigned int codeHTTP;
-    unsigned int dataSize;
+   unsigned int dataSize;
 	std::string navigateur;
 	std::string extensionRessource;
 	
