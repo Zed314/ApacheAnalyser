@@ -1,0 +1,2 @@
+../../bin/analog -g fichierGraph.dot ../../Tests/Test20/test.log 
+

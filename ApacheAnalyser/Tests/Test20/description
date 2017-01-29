@@ -1,0 +1,5 @@
+On teste le programme pour vérifier si, pour les référenceurs:
+-Il retire bien le nom de domaine si celui-ci est relatif au site web courant
+-Il retire bien l'en-tête http/https
+-Il ne conserve bien que le nom de domaine si la ressource référente n'est pas hébergée sur le même nom de domaine que le site web courant
+-Il ne conserve pas les paramétres du GET (?A=1) pour les ressources référentes
