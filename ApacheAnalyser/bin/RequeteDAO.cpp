@@ -26,11 +26,6 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type RequeteDAO::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 bool RequeteDAO::EstVide() const
 {
@@ -44,14 +39,12 @@ bool RequeteDAO::EstVide() const
 	streampos diff=fluxEntree.tellg();
 	fluxEntree.seekg(0, ios::end);
 	diff=fluxEntree.tellg()-diff;
-   if(diff!=0)
-   {
-   	return false;
-   }
-   return true;
+  if(diff!=0)
+  {
+    return false;
+  }
+  return true;
 }//----- Fin de EstVide
-
-
 
 
 int RequeteDAO::ExtraireLesDonnees(EnsemblePages & EnsemblePagesACompleter)
@@ -64,14 +57,12 @@ int RequeteDAO::ExtraireLesDonnees(EnsemblePages & EnsemblePagesACompleter)
 	fichierSource.seekg(0, ios::beg);
 	string ligneLue;
 	int nbLignesLues=0;
-   while(getline(fichierSource,ligneLue))
-   {
+  while(getline(fichierSource,ligneLue))
+  {
    	nbLignesLues++;
    	EnsemblePagesACompleter.AjouterRequete(Requete(ligneLue));
-   }
-   return nbLignesLues;
-
-
+  }
+  return nbLignesLues;
 } //----- Fin de ExtraireLesDonnees
 
 
@@ -81,33 +72,39 @@ bool RequeteDAO::EstLisible() const
 } //----- Fin de EstLisible
 
 //------------------------------------------------- Surcharge d'opérateurs
-
-
+RequeteDAO & RequeteDAO::operator = ( const RequeteDAO & uneRequeteDAO )
+{
+  this->nomFichierSource = uneRequeteDAO.nomFichierSource;
+  this->fichierSource = ifstream(nomFichierSource);
+   return *this;
+}//----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
-
+RequeteDAO::RequeteDAO (const RequeteDAO& uneRequeteDAO)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie <RequeteDAO>" << endl;
+#endif
+    this->nomFichierSource = uneRequeteDAO.nomFichierSource;
+    this->fichierSource = ifstream(nomFichierSource);
+}//----- Fin de RequeteDAO (constructeur copie)
 
 
 RequeteDAO::RequeteDAO (string nomDuFichier)
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de <RequeteDAO>" << endl;
 #endif
-nomFichierSource=nomDuFichier;
-fichierSource.open(nomFichierSource);
+  nomFichierSource = nomDuFichier;
+  fichierSource = ifstream(nomFichierSource);
 } //----- Fin de RequeteDAO
 
 
 RequeteDAO::~RequeteDAO ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <RequeteDAO>" << endl;
 #endif
-fichierSource.close();
 } //----- Fin de ~RequeteDAO
 
 

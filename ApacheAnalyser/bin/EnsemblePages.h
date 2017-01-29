@@ -23,20 +23,17 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
-
-
 struct  HitsParRessource{
 	unsigned int nbHits;
-	string localisationDeLaRessource;
+	std::string localisationDeLaRessource;
 	
-	HitsParRessource(unsigned nombreHits=0,string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
+	HitsParRessource(unsigned nombreHits=0,std::string localisation=""):nbHits(nombreHits),localisationDeLaRessource(localisation)
 	{
 	}
 	 
-	string ToString() const
+	std::string ToString() const
 	{
-		return localisationDeLaRessource + " (" + to_string(nbHits) + " hits)"; 
+		return localisationDeLaRessource + " (" + std::to_string(nbHits) + " hits)"; 
 	} 
 };
 
@@ -55,18 +52,17 @@ struct pageHitsComparator
   }
   
 };
-typedef set <HitsParRessource,pageHitsComparator> TSetPagesHits;
 
-//typedef unordered_map <string, Page> TMapNomPage;
-typedef map <string, Page> TMapNomPage;
+typedef std::set <HitsParRessource,pageHitsComparator> TSetPagesHits;
+typedef std::map <std::string, Page> TMapNomPage;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EnsemblePages>
 //	La classe EnsemblePages est chargée du stockage en mémoire d'informations 
-// relatives au visites des documents webs à partir d'objets "Requete". 
-// La classe EnsemblePages est également chargée d'extraire et de restituer 
-// des informations à partir des données sur les visites des documents
-// webs, telles qu'une collection ordonnée des pages les plus visitées.
+//  relatives au visites des documents webs à partir d'objets "Requete". 
+//  La classe EnsemblePages est également chargée d'extraire et de restituer 
+//  des informations à partir des données sur les visites des documents
+//  webs, telles qu'une collection ordonnée des pages les plus visitées.
 //------------------------------------------------------------------------
 
 class EnsemblePages 
@@ -75,16 +71,24 @@ class EnsemblePages
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-	TMapNomPage::const_iterator ObtenirIterateurSur(const string & nomDeLaPage) const;	
-	
+
+	TMapNomPage::const_iterator ObtenirIterateurSur(const std::string & nomDeLaPage) const;	
+	// Mode d'emploi : 
+  //  renvoie un iterateur constant de l'attribut pages sur l'element "nomDeLaPage"
+  // Contrat :
+  //
+
 	TMapNomPage::const_iterator ObtenirDebutPages() const;
-	
+	// Mode d'emploi : 
+  //  renvoie un iterateur constant de l'attribut pages sur le debut
+  // Contrat :
+  //
+
 	TMapNomPage::const_iterator ObtenirFinPages() const;
+  // Mode d'emploi : 
+  //  renvoie un iterateur constant de l'attribut pages sur la fin
+  // Contrat :
+  //
 	
 	const TSetPagesHits ObtenirLesNPremiers (int n = 10) const;
 	// Mode d'emploi : 
@@ -108,16 +112,10 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    EnsemblePages ( const EnsemblePages & unEnsemblePages );
-    // Mode d'emploi (constructeur de copie) :
-    //	construit une copie de l'objet EnsemblePages
-    // Contrat :
-    //
-
-    EnsemblePages  (int heureDebut = 0, int heureFin = 24, bool restrictionsExtensions = false);
+    EnsemblePages  (unsigned int heureDebut = 0, unsigned int heureFin = 24, bool restrictionsExtensions = false);
     // Mode d'emploi :
-    //cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
-	//	et avec ou sans les extensions d'image, css, javascript en dependence de ext
+    //  cree un nouveau ensemble de pages pour de pages avec un heure comprise entre hdebut et hfin, 
+	  //	et avec ou sans les extensions d'image, css, javascript en dependence de ext
     // Contrat :
     //
 
@@ -153,10 +151,7 @@ private:
 
 //---------------------------------------------------------- Classes amies
 
-//friend class EnsemblePagesDAO;
-
 //-------------------------------------------------------- Classes privées
-
 
 //----------------------------------------------------------- Types privés
 

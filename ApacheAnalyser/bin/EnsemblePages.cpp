@@ -32,26 +32,22 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type EnsemblePages::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 TMapNomPage::const_iterator EnsemblePages::ObtenirIterateurSur(const string & nomDeLaPage) const	
 {
 	return pages.find(nomDeLaPage);
-}//----- Fin de ObtenirIterateurSur()
+}//----- Fin de ObtenirIterateurSur
 
 TMapNomPage::const_iterator EnsemblePages::ObtenirDebutPages() const
 {
 	return pages.begin();
-}//----- Fin de ObtenirDebutPages()
+}//----- Fin de ObtenirDebutPages
 
 TMapNomPage::const_iterator EnsemblePages::ObtenirFinPages() const
 {
 	return pages.end();
-}//----- Fin de ObtenirFinPages()
+}//----- Fin de ObtenirFinPages
+
 const TSetPagesHits EnsemblePages::ObtenirLesNPremiers(int n) const
 {
 	int i;
@@ -68,53 +64,48 @@ const TSetPagesHits EnsemblePages::ObtenirLesNPremiers(int n) const
 
 unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 {
-	//cout<<"Ajout d'une requete"<<endl;
-	Page pageAAjouter;
-	unsigned int nbDocumentsAjoutes=0;
-	if(!r.AUneExtensionImgCssJS()||extensionsImgJsCssAutorisees)
+	
+	unsigned int nbDocumentsAjoutes = 0;
+	if(!(r.AUneExtensionImgCssJS() && !extensionsImgJsCssAutorisees))  // Verifie que si on a la option -e alors les extensions ne sont pas prises en compte
 	{
-		unsigned int heureRequete=r.ObtenirHeure();
-		if(heureRequete>=hDebut&&heureRequete<=hFin)
+		unsigned int heureRequete = r.ObtenirHeure();
+		
+		if(heureRequete >= hDebut && heureRequete < hFin)  // Verifie que les requetes sont dans la bonne plage horaire
 		{
-			string URIDeLaRequete=r.ObtenirURI();
-			string referenceur=r.ObtenirReferent();
+			string URIDeLaRequete = r.ObtenirURI();
+			string referenceur = r.ObtenirReferent();
 			unsigned int nbHitsDocument;
 			
-			TMapNomPage::iterator iterateurPages=pages.find(URIDeLaRequete);
+			TMapNomPage::iterator iterateurPages = pages.find(URIDeLaRequete);
 
-			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce document dans pages 
+			if(iterateurPages == pages.end())  // Si il n'existe pas d'objet Page associé à ce document dans pages 
 			{
-		
-				nbHitsDocument=pageAAjouter.AjouterUnReferenceur(referenceur);
-				pages[URIDeLaRequete]=pageAAjouter;
+				Page pageAAjouter;
+				nbHitsDocument = pageAAjouter.AjouterUnReferenceur(referenceur);
+				pages[URIDeLaRequete] = pageAAjouter;
 				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
-				nbDocumentsAjoutes++;
-				
+				nbDocumentsAjoutes++;	
 			}
 			else
 			{
-			
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
-				
 				//Si le document a déjà été indexé dans pageHits.
 				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
-				//Cela arrive si le document a auparavant uniquement étémentionné comme étant un référenceur.
+				//Cela arrive si le document a auparavant uniquement été mentionné comme étant un référenceur.
 				//Ainsi une page vide a été créé mais pas d'entrée dans pageHits. Dans ce cas, on n'a pas besoin de
 				//Chercher à supprimer l'entrée dans pageHits.
-				if(nbHitsDocument!=1)
+				if(nbHitsDocument != 1)
 				{			
-				
-					pageHits.erase(  HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
+					pageHits.erase( HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
-			
-				pageHits.insert(  HitsParRessource(nbHitsDocument,URIDeLaRequete));
+				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
 			}
-			iterateurPages=pages.find(referenceur);
-			if(iterateurPages==pages.end())//Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
+
+			iterateurPages = pages.find(referenceur);
+			if(iterateurPages == pages.end())  // Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
 			{
-			//Page pageAAjouter;
 				Page pageDuReferant;
-				pages[referenceur]=pageDuReferant;
+				pages[referenceur] = pageDuReferant;
 				nbDocumentsAjoutes++;
 			}
 			
@@ -130,53 +121,11 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 
 
 //-------------------------------------------- Constructeurs - destructeur
-EnsemblePages::EnsemblePages ( const EnsemblePages & unEnsemblePages )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <EnsemblePages>" << endl;
-#endif
-} //----- Fin de EnsemblePages (constructeur de copie)
-
-
-EnsemblePages::EnsemblePages (int heureDebut, int heureFin, bool restrictionsExtensions):extensionsImgJsCssAutorisees(!restrictionsExtensions)
-// Algorithme :
-//
+EnsemblePages::EnsemblePages (unsigned int heureDebut, unsigned int heureFin, bool restrictionsExtensions): hDebut(heureDebut), hFin(heureFin), extensionsImgJsCssAutorisees(!restrictionsExtensions) 
 {
 	#ifdef MAP
     cout << "Appel au constructeur de <EnsemblePages>" << endl;
 	#endif
-	if(heureDebut<0)
-	{
-		heureDebut=0;
-	}
-	else if(heureDebut>=24)
-	{
-		heureDebut=23;
-	}
-	if(heureFin>=24)
-	{
-		heureFin=23;
-	}
-	else if(heureFin<0)
-	{
-		heureFin=0;
-	}
-	
-	if(heureFin<heureDebut)
-	{
-		int heureTemp=heureFin;
-		heureFin=heureDebut;
-		heureDebut=heureTemp;
-		
-	}
-
-
-	hDebut=heureDebut;
-	hFin=heureFin;
-
-
 } //----- Fin de EnsemblePages
 
 

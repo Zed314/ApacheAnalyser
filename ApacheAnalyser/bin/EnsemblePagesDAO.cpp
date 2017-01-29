@@ -22,85 +22,74 @@ using namespace std;
 #include "EnsemblePagesDAO.h"
 #include "EnsemblePages.h"
 #include <string>
-//#include "EnsemblePages.h"
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type EnsemblePagesDAO::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 
 bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 {
-	fichierSortie<<"digraph {"<<endl;
-	//TMapNomPage::const_iterator ObtenirDebutPages() const;
 	TMapNomPage::const_iterator iterateurPages;
-	 RefHits::const_iterator iterateurRef;
+	RefHits::const_iterator iterateurRef;
 	unsigned int i =0;
-	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
+
+	fichierSortie<<"digraph {"<<endl;
+	// Ecrire les noeuds
+	for(iterateurPages= ensembleARendre.ObtenirDebutPages(); iterateurPages!=ensembleARendre.ObtenirFinPages(); iterateurPages++)
 	{
 		
-		fichierSortie<<"node"<<to_string(i)<<" [label=\""<<iterateurPages->first<<"\"];"<<endl;
-	i++;
+		fichierSortie << "node" << to_string(i) << " [label=\"" << iterateurPages->first << "\"];" << endl;
+		i++;
 	}
+	// Fin de ecrire les noeuds
+
+	// Ecrire les arcs
 	i =0;
 	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
 	{
 	
-		for(iterateurRef= iterateurPages->second.ObtenirUnIterateurDeDebut();iterateurRef!=iterateurPages->second.ObtenirUnIterateurDeFin();iterateurRef++)
+		for(iterateurRef = iterateurPages->second.ObtenirUnIterateurDeDebut(); iterateurRef != iterateurPages->second.ObtenirUnIterateurDeFin(); iterateurRef++)
 		{
 		
-			fichierSortie<<"node"+to_string(distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first)))
-			+"-> node"+to_string(i)
-			<<"[label=\""+to_string(iterateurRef->second)+
-			"\"];"<<endl;
+			fichierSortie << "node" + to_string(distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first)))
+			+ "-> node" + to_string(i) << "[label=\"" + to_string(iterateurRef->second) + "\"];" << endl;
 		}
 		i++;
-		//fichierSortie<<"node"+to_string(distance(iterateurPages..begin,pages.find()))
-		//fichierSortie<<"node"<<to_string(i)<<" [label=\""<<iterateurPages.first<<"\"];"<<endl;
-	}//distance
-	
+	}
+	// Fin de ecrire les arcs
 	fichierSortie<<"}"<<endl;
 	
 	return true;
 }//----- Fin de ExporterUnGraphe
-
-
-
-
 
 bool EnsemblePagesDAO::ExisteEtNonProtegeEnLecture() const
 {
 	ifstream fluxEntree(nomFichierSortie);
 	
 	return !fluxEntree.fail();
-}
+}//----- Fin de ExisteEtNonProtegeEnLecture
+
 bool EnsemblePagesDAO::EstVide() const
 {
 	if(!this->ExisteEtNonProtegeEnLecture())
 	{
 		return true;
 	}
+	
 	ifstream fluxEntree(nomFichierSortie);
 	fluxEntree.clear();
 	fluxEntree.seekg(0, ios::beg);
 	streampos diff=fluxEntree.tellg();
 	fluxEntree.seekg(0, ios::end);
 	diff=fluxEntree.tellg()-diff;
-   if(diff!=0)
-   {
-   	return false;
-   }
-   return true;
-	
-}
-
-
+    if(diff!=0)
+    {
+   		return false;
+    }
+    return true;	
+}//----- Fin de EstVide
 
 bool EnsemblePagesDAO::EcriturePossible() const
 {
@@ -109,29 +98,37 @@ bool EnsemblePagesDAO::EcriturePossible() const
 		return true;
 	}
 	return false;
-}
+}//----- Fin de EcriturePossible
+
 //------------------------------------------------- Surcharge d'opérateurs
-
-
+EnsemblePagesDAO & EnsemblePagesDAO::operator = ( const EnsemblePagesDAO & unEnsemblePagesDAO )
+{
+	this->nomFichierSortie = unEnsemblePagesDAO.nomFichierSortie;
+    this->fichierSortie = ofstream(nomFichierSortie,ios::app);
+    return *this;
+}//----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
+EnsemblePagesDAO::EnsemblePagesDAO (const EnsemblePagesDAO& unEnsemblePagesDAO)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie <EnsemblePagesDAO>" << endl;
+#endif
+    this->nomFichierSortie = unEnsemblePagesDAO.nomFichierSortie;
+    this->fichierSortie = ofstream(nomFichierSortie,ios::app);
+}//----- Fin de EnsemblePagesDAO (constructeur copie)
 
 
-
-EnsemblePagesDAO::EnsemblePagesDAO (string nomFichier):nomFichierSortie(nomFichier)
-// Algorithme :
-//
+EnsemblePagesDAO::EnsemblePagesDAO (string nomFichier): nomFichierSortie(nomFichier)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <EnsemblePagesDAO>" << endl;
 #endif
-fichierSortie=ofstream(nomFichierSortie,ios::app);
+	fichierSortie = ofstream(nomFichierSortie,ios::app);
 } //----- Fin de EnsemblePagesDAO
 
 
 EnsemblePagesDAO::~EnsemblePagesDAO ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <EnsemblePagesDAO>" << endl;

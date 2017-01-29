@@ -26,12 +26,6 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Page::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 RefHits::const_iterator Page::ObtenirUnIterateurDeDebut() const
 {
 	return pagesReferentes.cbegin();
@@ -44,52 +38,22 @@ RefHits::const_iterator Page::ObtenirUnIterateurDeFin() const
 
 unsigned int Page::AjouterUnReferenceur(const string & urlDuReferenceur)
 {
-	//cout<<"On ajoute le référenceur "<<urlDuReferenceur<<endl;
-	//cout<<"Il a deja ete ref"<<pagesReferentes.count(urlDuReferenceur)<<endl;
-	 if(pagesReferentes.count(urlDuReferenceur)==1)
-	 {
-	 //	cout<<"++"<<endl;
-	 	pagesReferentes[urlDuReferenceur]=pagesReferentes[urlDuReferenceur]+1;
-	 }
-	 else
-	 {
-	 //	cout<<"=1"<<endl;
-	 	pagesReferentes[urlDuReferenceur]=1;
-	 }
-	// cout<<"Et désormais"<<pagesReferentes.count(urlDuReferenceur)<<endl;
+	if(pagesReferentes.count(urlDuReferenceur)==1)
+	{
+		pagesReferentes[urlDuReferenceur] = pagesReferentes[urlDuReferenceur] + 1;
+	}
+	else
+	{
+		pagesReferentes[urlDuReferenceur]=1;
+	}
 	nbHitsTotal++;
 	return nbHitsTotal;
 }//----- Fin de AjouterUnReferenceur
 
 //------------------------------------------------- Surcharge d'opérateurs
-Page & Page::operator = ( const Page & unePage )
-// Algorithme :
-//
-{
-	this->pagesReferentes=unePage.pagesReferentes;
-
-	this->nbHitsTotal=unePage.nbHitsTotal;
-	return *this;
-} //----- Fin de operator =
-
 
 //-------------------------------------------- Constructeurs - destructeur
-Page::Page ( const Page & unePage )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Page>" << endl;
-#endif
-(*this)=unePage;
-
-
-} //----- Fin de Page (constructeur de copie)
-
-
-Page::Page ( ):nbHitsTotal(0)
-// Algorithme :
-//
+Page::Page ( ): nbHitsTotal(0)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Page>" << endl;
@@ -98,14 +62,11 @@ Page::Page ( ):nbHitsTotal(0)
 
 
 Page::~Page ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Page>" << endl;
 #endif
 } //----- Fin de ~Page
-
 
 //------------------------------------------------------------------ PRIVE
 

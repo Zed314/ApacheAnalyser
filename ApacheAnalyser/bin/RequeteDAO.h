@@ -24,9 +24,9 @@ using namespace std;
 //------------------------------------------------------------------------
 // Rôle de la classe <RequeteDAO>
 //	RequeteDAO est une classe permettant l'extraction des requetes depuis 
-// un fichier ainsi que son utilisation par la classe EnsemblePages.
-// Pour cela, elle est en mesure de lire un fichier à partir de son nom
-// et de transmettre à un objet Requete une ligne de logs
+//  un fichier ainsi que son utilisation par la classe EnsemblePages.
+//  Pour cela, elle est en mesure de lire un fichier à partir de son nom
+//  et de transmettre à un objet Requete une ligne de logs
 //------------------------------------------------------------------------
 
 class RequeteDAO
@@ -35,35 +35,34 @@ class RequeteDAO
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
     
     int ExtraireLesDonnees(EnsemblePages & EnsemblePagesACompleter);
-    // Mode d'emploi : Extraits les données en provenance de flux fichier et créé les
-    // requetes associées pour les insérer dans un EnsemblePages.L'objet EnsemblePages
-    // choisira si il doit accepter ou non les informations en provenances des requetes
-    // en fonction de ses contraintes.
-    // Retourne le nombre de lignes lues et -1 si une erreur est survenue lors de la lecture
+    // Mode d'emploi : 
+    //  Extraits les données en provenance de flux fichier et créé les
+    //  requetes associées pour les insérer dans un EnsemblePages.L'objet EnsemblePages
+    //  choisira si il doit accepter ou non les informations en provenances des requetes
+    //  en fonction de ses contraintes.
+    //  Retourne le nombre de lignes lues et -1 si une erreur est survenue lors de la lecture
     
     bool EstLisible() const;
-    // Mode d'emploi : Renvoie true si le fichier ayant comme nom 
-    // l'attribut fichierSource est lisible et false sinon.
-    // Lisible signifie que le fichier existe et qu'on a 
-    // les droits de lecture dessus
+    // Mode d'emploi : 
+    //  Renvoie true si le fichier ayant comme nom 
+    //  l'attribut fichierSource est lisible et false sinon.
+    //  Lisible signifie que le fichier existe et qu'on a 
+    //  les droits de lecture dessus
     
     bool EstVide() const;
-    // Mode d'emploi : Renvoie true si le fichier ayant comme nom 
-    // l'attribut fichierSource est vide et false sinon
-    // Si on n'a pas les droit en lecture, renvoie true
+    // Mode d'emploi : 
+    //  Renvoie true si le fichier ayant comme nom 
+    //  l'attribut fichierSource est vide et false sinon
+    //  Si on n'a pas les droit en lecture, renvoie true
 	
 
 //------------------------------------------------- Surcharge d'opérateurs
-    RequeteDAO & operator = ( const RequeteDAO & unRequeteDAO );
+    RequeteDAO & operator = ( const RequeteDAO & uneRequeteDAO );
     // Mode d'emploi :
-    //
+    //  attribue au nomFichierSource le nom fichier source d'uneRequeteDAO
+    //  et ouvre un ifstream sur ce fichier 
     // Contrat :
     //
 
@@ -71,19 +70,22 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     RequeteDAO ( const RequeteDAO & uneRequeteDAO );
     // Mode d'emploi (constructeur de copie) :
-    //
+    //  Construit par copie un objet de type RequeteDAO
+    //  Le nom de fichier est copié et un ifstream sur ce fichier est ouvert
     // Contrat :
     //
 
-    RequeteDAO (string nomDuFichier);
+    RequeteDAO (std::string nomDuFichier);
     // Mode d'emploi :
-    //
+    //  Construit un objet de type RequeteDAO
+    //  avec nomFichierSource = nomDuFichier
+    //  et ouvre un ifstream sur ce fichier 
     // Contrat :
     //
 
     virtual ~RequeteDAO ( );
     // Mode d'emploi :
-    //
+    //  Detruit l'objet
     // Contrat :
     //
 
@@ -93,7 +95,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-	string nomFichierSource;
+	std::string nomFichierSource;
 	ifstream fichierSource;
 
 };
