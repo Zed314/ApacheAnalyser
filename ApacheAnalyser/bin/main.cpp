@@ -280,12 +280,12 @@ int main(int argc, char** argv)
 					else if(!ensPagesDAO.EstVide())
 					{
 				
-						cerr<<"On ne peut pas écrire dans ce fichier, il est non vide."<<endl;
+						cerr<<"On ne peut pas écrire dans le fichier \""<<nomFichierSortie<<"\", il est non vide."<<endl;
 						
 					}
 					else
 					{
-						cerr<<"Impossible d'écrire dans ce fichier!"<<endl;
+						cerr<<"Impossible d'écrire dans le fichier \""<<nomFichierSortie<<"\", il est protégé en écriture!"<<endl;
 					}
 	
 				}
