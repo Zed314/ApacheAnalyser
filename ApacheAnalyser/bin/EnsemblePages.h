@@ -93,7 +93,8 @@ public:
 	
 	const TSetPagesHits ObtenirLesNPremiers (int n = 10) const;
 	// Mode d'emploi : 
-	//	renvoie les N premieres paires de nombres de hits total et pages tries par ordre decroissant de nombre de hits
+	//	renvoie les N premieres paires de nombres de hits total et de nom de page associé,
+	// tries par ordre decroissant de nombre de hits
 	// Contrat :
 	//
 	

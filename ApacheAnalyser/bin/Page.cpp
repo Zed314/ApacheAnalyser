@@ -13,7 +13,7 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-
+#include <utility>
 #include <iostream>
 #include <string>
 #include <iterator>
@@ -42,10 +42,12 @@ unsigned int Page::AjouterUnReferenceur(const std::string & urlDuReferenceur)
 	if(pagesReferentes.count(urlDuReferenceur)==1)
 	{
 		pagesReferentes[urlDuReferenceur] = pagesReferentes[urlDuReferenceur] + 1;
+
 	}
 	else
 	{
-		pagesReferentes[urlDuReferenceur]=1;
+		pagesReferentes.insert(make_pair(urlDuReferenceur,1));
+		
 	}
 	nbHitsTotal++;
 	return nbHitsTotal;

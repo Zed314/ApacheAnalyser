@@ -18,6 +18,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <utility>
 //------------------------------------------------------ Include personnel
 #include "EnsemblePages.h"
 
@@ -82,30 +83,44 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			{
 				Page pageAAjouter;
 				nbHitsDocument = pageAAjouter.AjouterUnReferenceur(referenceur);
-				pages[URIDeLaRequete] = pageAAjouter;
+				//pages[URIDeLaRequete] = pageAAjouter;
+				pages.insert(make_pair(URIDeLaRequete,pageAAjouter));
 				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
 				nbDocumentsAjoutes++;	
 			}
 			else
 			{
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
-				//Si le document a déjà été indexé dans pageHits.
-				//Il peut arriver qu'il ne le soit pas et qu'il se trouve quand même dans pages.
-				//Cela arrive si le document a auparavant uniquement été mentionné comme étant un référenceur.
-				//Ainsi une page vide a été créé mais pas d'entrée dans pageHits. Dans ce cas, on n'a pas besoin de
-				//Chercher à supprimer l'entrée dans pageHits.
-				if(nbHitsDocument != 1)
+
+		/*		if(nbHitsDocument != 1)//Si le document référent a déjà une entrée dans PageHits
 				{			
-					pageHits.erase( HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
+					pageHits.erase(HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
-				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));
+				pageHits.insert( HitsParRessource(nbHitsDocument,URIDeLaRequete));*/
+				
+				
+				if(nbHitsDocument != 1)//Si le document référent a déjà une entrée dans PageHits
+				{			
+					//Nous effectuons un iterateur pour faire la suppression afin de gagner du temps à la réinsertion
+					//en étant en mesure de donner un "hint" à la fonction d'insertion
+					//On est obligé d'utiliser le find car erase ne renvoie un iterateur que si on lui donne un iterateur en paramètre
+					TSetPagesHits::iterator itReinsertion=pageHits.erase(pageHits.find(HitsParRessource(nbHitsDocument-1,URIDeLaRequete)));
+					pageHits.insert(itReinsertion, HitsParRessource(nbHitsDocument,URIDeLaRequete));
+				}
+				else
+				{
+					pageHits.insert(HitsParRessource(nbHitsDocument,URIDeLaRequete));
+				}
+		
+
 			}
 
 			iterateurPages = pages.find(referenceur);
 			if(iterateurPages == pages.end())  // Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
 			{
 				Page pageDuReferant;
-				pages[referenceur] = pageDuReferant;
+				pages.insert(make_pair(referenceur,pageDuReferant));
+				//pages[referenceur] = pageDuReferant;
 				nbDocumentsAjoutes++;
 			}
 			
