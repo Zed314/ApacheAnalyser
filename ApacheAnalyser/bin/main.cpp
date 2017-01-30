@@ -25,13 +25,13 @@ using namespace std;
 const string MAN = "Regardez le manuel pour plus apprendre à utiliser la commande.";
 
 //Fonction qui transforme un element du set <HitsParRessource,pageHitsComparator> en un string et le renvoie
-string HitsParRessourceSetToString (set <HitsParRessource,pageHitsComparator> hitsSet)
+string HitsParRessourceSetToString (const set <HitsParRessource,pageHitsComparator> & hitsSet)
 {
 	string output = "";
 	TSetPagesHits::const_iterator it;
 	for (it = hitsSet.cbegin(); it != hitsSet.cend(); it++)
 	{
-		output += (*it).ToString() + "\r\n";	
+		output += it->ToString() + "\r\n";	
 	}
 
 	return output;
