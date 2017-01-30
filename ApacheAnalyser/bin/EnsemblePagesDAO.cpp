@@ -40,7 +40,7 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 	for(iterateurPages= ensembleARendre.ObtenirDebutPages(); iterateurPages!=ensembleARendre.ObtenirFinPages(); iterateurPages++)
 	{
 		
-		fichierSortie << "node" << to_string(i) << " [label=\"" << iterateurPages->first << "\"];" << endl;
+		fichierSortie << "node" <<i << " [label=\"" << iterateurPages->first << "\"];" << endl;
 		i++;
 	}
 	// Fin de ecrire les noeuds
@@ -53,8 +53,8 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 		for(iterateurRef = iterateurPages->second.ObtenirUnIterateurDeDebut(); iterateurRef != iterateurPages->second.ObtenirUnIterateurDeFin(); iterateurRef++)
 		{
 		
-			fichierSortie << "node" + to_string(distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first)))
-			+ "-> node" + to_string(i) << "[label=\"" + to_string(iterateurRef->second) + "\"];" << endl;
+			fichierSortie << "node"<<distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first))
+			<<"-> node"<<i<< "[label=\""<<iterateurRef->second<<"\"];" << endl;
 		}
 		i++;
 	}
@@ -98,6 +98,7 @@ bool EnsemblePagesDAO::EcriturePossible() const
 		return true;
 	}
 	return false;
+
 }//----- Fin de EcriturePossible
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -119,7 +120,7 @@ EnsemblePagesDAO::EnsemblePagesDAO (const EnsemblePagesDAO& unEnsemblePagesDAO)
 }//----- Fin de EnsemblePagesDAO (constructeur copie)
 
 
-EnsemblePagesDAO::EnsemblePagesDAO (string nomFichier): nomFichierSortie(nomFichier)
+EnsemblePagesDAO::EnsemblePagesDAO (string & nomFichier): nomFichierSortie(nomFichier)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <EnsemblePagesDAO>" << endl;

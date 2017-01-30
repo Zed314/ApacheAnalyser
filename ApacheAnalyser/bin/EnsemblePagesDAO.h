@@ -75,7 +75,7 @@ public:
     // Contrat :
     //
 
-    EnsemblePagesDAO (std::string nomFichier);
+    EnsemblePagesDAO (std::string & nomFichier);
     // Mode d'emploi :
     //  Construit un objet de type EnsemblePagesDAO
     //  avec nomFichierSortie = nomFichier

@@ -104,7 +104,6 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 					//Nous effectuons un iterateur pour faire la suppression afin de gagner du temps à la réinsertion
 					//en étant en mesure de donner un "hint" à la fonction d'insertion
 					//On est obligé d'utiliser le find car erase ne renvoie un iterateur que si on lui donne un iterateur en paramètre
-				//	TSetPagesHits::iterator itReinsertion=pageHits.erase(pageHits.find(HitsParRessource(nbHitsDocument-1,URIDeLaRequete)));
 					pageHits.insert(pageHits.erase(pageHits.find(HitsParRessource(nbHitsDocument-1,URIDeLaRequete))), 
 					HitsParRessource(nbHitsDocument,URIDeLaRequete));
 				}
@@ -121,7 +120,6 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			{
 				Page pageDuReferant;
 				pages.insert(make_pair(referenceur,pageDuReferant));
-				//pages[referenceur] = pageDuReferant;
 				nbDocumentsAjoutes++;
 			}
 			
