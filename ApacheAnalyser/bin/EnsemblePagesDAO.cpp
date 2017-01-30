@@ -21,6 +21,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "EnsemblePagesDAO.h"
 #include "EnsemblePages.h"
+#include "Page.h"
 #include <string>
 
 //------------------------------------------------------------- Constantes
@@ -33,11 +34,14 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 {
 	TMapNomPage::const_iterator iterateurPages;
 	RefHits::const_iterator iterateurRef;
+	TMapNomPage::const_iterator iterateurPagesDebut=ensembleARendre.ObtenirDebutPages();
+	TMapNomPage::const_iterator iterateurPagesFin=ensembleARendre.ObtenirFinPages();
+	
 	unsigned int i =0;
 
 	fichierSortie<<"digraph {"<<endl;
 	// Ecrire les noeuds
-	for(iterateurPages= ensembleARendre.ObtenirDebutPages(); iterateurPages!=ensembleARendre.ObtenirFinPages(); iterateurPages++)
+	for(iterateurPages= ensembleARendre.ObtenirDebutPages(); iterateurPages!=iterateurPagesFin; iterateurPages++)
 	{
 		
 		fichierSortie << "node" <<i << " [label=\"" << iterateurPages->first << "\"];" << endl;
@@ -47,13 +51,13 @@ bool EnsemblePagesDAO::ExporterUnGraphe( const EnsemblePages & ensembleARendre)
 
 	// Ecrire les arcs
 	i =0;
-	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=ensembleARendre.ObtenirFinPages();iterateurPages++)
+	for(iterateurPages= ensembleARendre.ObtenirDebutPages();iterateurPages!=iterateurPagesFin;iterateurPages++)
 	{
 	
 		for(iterateurRef = iterateurPages->second.ObtenirUnIterateurDeDebut(); iterateurRef != iterateurPages->second.ObtenirUnIterateurDeFin(); iterateurRef++)
 		{
 		
-			fichierSortie << "node"<<distance(ensembleARendre.ObtenirDebutPages(),ensembleARendre.ObtenirIterateurSur(iterateurRef->first))
+			fichierSortie << "node"<<distance(iterateurPagesDebut,ensembleARendre.ObtenirIterateurSur(iterateurRef->first))
 			<<"-> node"<<i<< "[label=\""<<iterateurRef->second<<"\"];" << endl;
 		}
 		i++;

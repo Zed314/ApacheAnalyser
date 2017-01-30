@@ -1,0 +1,1 @@
+On teste le programme pour vérifier si il affiche bien un message d'erreur si l'utilisateur utilise l'option -g mais qu'il ne spécifie pas de fichier de sortie.
