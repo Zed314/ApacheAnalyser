@@ -1,1 +1,1 @@
-On teste le programme en supprimant les pages dont l'extension suggérent qu'ils sont des images, des fichiers javascript ou une feuille de style CSS.
+On teste le programme en supprimant les pages dont l'extension suggérent qu'ils sont des images, des fichiers javascript ou une feuille de style CSS, ainsi que les requêtes passées en dehors d'un créneau défini en paramétre.
