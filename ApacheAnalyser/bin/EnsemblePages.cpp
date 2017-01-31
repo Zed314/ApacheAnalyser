@@ -92,7 +92,7 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 			{
 				nbHitsDocument=iterateurPages->second.AjouterUnReferenceur(referenceur);
 
-		/*		if(nbHitsDocument != 1)//Si le document référent a déjà une entrée dans PageHits
+				/*if(nbHitsDocument != 1)//Si le document référent a déjà une entrée dans PageHits
 				{			
 					pageHits.erase(HitsParRessource(nbHitsDocument-1,URIDeLaRequete));
 				}
@@ -115,8 +115,8 @@ unsigned int EnsemblePages::AjouterRequete (const Requete& r)
 
 			}
 
-			iterateurPages = pages.find(referenceur);
-			if(iterateurPages == pages.end())  // Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
+		
+			if(pages.find(referenceur) == pages.end())  // Si il n'existe pas d'objet Page associé à ce référenceur dans pages 
 			{
 				Page pageDuReferant;
 				pages.insert(make_pair(referenceur,pageDuReferant));

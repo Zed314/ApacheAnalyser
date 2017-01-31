@@ -13,6 +13,7 @@ ainsi que la génération d'un graphe au format .dot lisible par l'outil GraphVi
 #include <map>
 #include <string>
 #include <iterator>
+#include <vector>
 
 
 
@@ -22,9 +23,9 @@ ainsi que la génération d'un graphe au format .dot lisible par l'outil GraphVi
 
 using namespace std;
 
-const string MAN = "Regardez le manuel pour plus apprendre à utiliser la commande.";
 
-//Fonction qui transforme un element du set <HitsParRessource,pageHitsComparator> en un string et le renvoie
+
+//Fonction qui transforme les elements du set <HitsParRessource,pageHitsComparator> en un string et le renvoie
 string HitsParRessourceSetToString (const set <HitsParRessource,pageHitsComparator> & hitsSet)
 {
 	string output = "";
@@ -39,6 +40,7 @@ string HitsParRessourceSetToString (const set <HitsParRessource,pageHitsComparat
 
 int main(int argc, char** argv)
 {	
+	const string MAN = "Regardez le manuel pour plus apprendre à utiliser la commande.";
 	int i = 0;
 	bool restrictionExtensions = false;
 	bool restrictionHoraires = false;
@@ -47,10 +49,10 @@ int main(int argc, char** argv)
 	string nomFichierSortie;
 	string nomFichierEntree;
 
-	string * parametres = new string[argc];
+	vector<string> parametres;
 	for(i=0;i<argc;i++)
 	{
-		parametres[i]=argv[i];
+		parametres.push_back(argv[i]);
 	}
 
 	// Gerer les differents parametres
@@ -191,7 +193,7 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	delete[] parametres;
+
 	
 	return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-# ApacheAnalyser
+ANALOG(1)		Utilitaire de statistique de logs Apache 		ANALOG(1)
 
 NAME
 
@@ -32,4 +32,7 @@ OPTIONS
 
 	-t hour
 
-		Include in the analysis the documents that where logged between [hour, hour+1] only
+		Include in the analysis the documents that where logged between [hour, hour+1[ only
+
+
+1.0.0					2017-01-31				ANALOG(1)

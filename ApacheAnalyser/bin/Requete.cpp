@@ -124,7 +124,9 @@ Requete::Requete (string ligneDeLog)
 	} 
 	catch (exception e)
 	{
-		//cerr << "conversion of codeHTTP couldn't be performed: " << aDecouper << endl;
+		#ifdef MAP
+			cerr << "conversion of codeHTTP couldn't be performed: " << aDecouper << endl;
+		#endif
 	}
 
 	getline(iss, aDecouper, ' ');
@@ -134,7 +136,10 @@ Requete::Requete (string ligneDeLog)
 	} 
 	catch (exception e)
 	{
-		//cerr << "conversion of dataSize couldn't be performed: " << aDecouper << endl;
+		#ifdef MAP
+			cerr << "conversion of dataSize couldn't be performed: " << aDecouper << endl;
+		#endif
+		
 	}
 	
 
