@@ -6,7 +6,7 @@ nMis=0
 
 for i in Test*
 do
-  ./test.sh $i results.csv
+   ./test.sh $i results.csv
   result=$?
   if [ $result -eq 0 ]
   then

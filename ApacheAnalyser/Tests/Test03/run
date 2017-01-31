@@ -1,3 +1,3 @@
-../../bin/analog  ../../Tests/Test03/fichierIllisible
+rm fichierIllisible -f &&touch fichierIllisible&&chmod u-r fichierIllisible&&../../bin/analog  ../../Tests/Test03/fichierIllisible
 
 
