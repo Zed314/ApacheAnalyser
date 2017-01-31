@@ -40,7 +40,7 @@ string HitsParRessourceSetToString (const set <HitsParRessource,pageHitsComparat
 
 int main(int argc, char** argv)
 {	
-	const string MAN = "Regardez le manuel pour plus apprendre à utiliser la commande.";
+	const string MAN = "Regardez le manuel pour apprendre à utiliser la commande.";
 	int i = 0;
 	bool restrictionExtensions = false;
 	bool restrictionHoraires = false;
