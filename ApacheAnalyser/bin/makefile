@@ -20,10 +20,13 @@ $(EXEC): $(OBJECTS)
 # Pour eviter les conflicts 
 .PHONY: clean valgrind
 	
-# Pour effacer les fichiers generés
+# Pour effacer les fichiers generÃ©s
 clean:
 	rm -f $(EXEC) $(OBJECTS)
 	
 # Pour valgrind
 valgrind:
 	valgrind $(VAL_FLAGS) ./$(EXEC)
+
+test:
+	sh ../Tests/mktest.sh
