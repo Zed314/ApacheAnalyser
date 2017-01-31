@@ -37,7 +37,6 @@ string HitsParRessourceSetToString (const set <HitsParRessource,pageHitsComparat
 
 	return output;
 }//----- Fin de HitsParRessourceSetToString
-
 int main(int argc, char** argv)
 {	
 	const string MAN = "Regardez le manuel pour apprendre à utiliser la commande.";

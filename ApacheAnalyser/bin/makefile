@@ -27,6 +27,5 @@ clean:
 # Pour valgrind
 valgrind:
 	valgrind $(VAL_FLAGS) ./$(EXEC)
-
 test:
-	sh ../Tests/mktest.sh
+	cd ../Tests && ./mktest.sh
