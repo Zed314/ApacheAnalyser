@@ -1,0 +1,1 @@
+../../bin/analog  -e -g pasCeNom.dot -e -e -t 20 -e -g niCeluiCi.dot -t 18 -e -t 11 -g fichierDeSortie.dot -e -e  ../../Tests/Test24/fichierLog
